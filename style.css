@@ -80,7 +80,7 @@ img{
     width: 120%;
     height: auto;
     margin-bottom: 15px;
-    border: solid 2px #e6e6e6;
+    /*border: solid 2px #e6e6e6;*/
     transition: all .3s ease;
 }
 /*
