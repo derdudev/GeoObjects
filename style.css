@@ -84,8 +84,8 @@ img{
     transition: all .3s ease;
 }
 img:hover{
-    translate: -2px -2px;
-    box-shadow: 4px 4px 0 #e6e6e6;
+    translate: 2px -2px;
+    box-shadow: -4px 4px 0 #e6e6e6;
 }
 .center{
     display: flex;
