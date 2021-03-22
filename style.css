@@ -18,6 +18,12 @@
 h2{
     margin-bottom: 20px;
 }
+h2::before{
+    background-color: #b44437;
+    height: 10px;
+    width: 200px;
+    content: "";
+}
 p{
     line-height: 26.5px;
     margin-bottom: 15px;
@@ -74,6 +80,12 @@ img{
     width: 120%;
     height: auto;
     margin-bottom: 15px;
+    border: solid 2px #e6e6e6;
+    transition: all .3s ease;
+}
+img:hover{
+    translate: -2px -2px;
+    box-shadow: 4px 4px 0 #e6e6e6;
 }
 .center{
     display: flex;
