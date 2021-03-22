@@ -1,8 +1,172 @@
-<html>
-  <head>
-    <title>Test</title>
-  </head>
-  <body>
-    test
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoBuilder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page">
+            <div class="section">
+                <h2>Stufe 5: Neue Punkte erstellen</h2>
+                <p>
+                    Die Punkte sollen nun ja, nicht wie zum Ende der vorherigen Stufe beschrieben im Konstruktor der Board-Klasse, vom  Benutzer erzeugt werden. So soll bei einem Mausklick ein neues <code>GPoint</code> Objekt (mit den Koordinaten der Stelle des Klicks auf der Zeichenfläche) erstellt und in die Liste <code>geoObjects</code> eingefügt werden.                    
+                </p>
+                <p>
+                    Um dieses Mausklick-Event "abzufangen", können wir die Methode <code>Board.mousePressed(MouseEvent e)</code> benutzen. Diese wird von JAVA nämlich genau dann aufgerufen, wenn die primäre (also die linke) Maustaste gedrückt wurde.
+                </p>
+                <p>
+                    Also schreiben wir in diese unseren Quellcode, der einen neuen Punkt erzeugt und der <code>geoObjects</code> Liste hinzufügt (Nach demselben Prinzip, wie wir es bereits im Konstruktor von <code>Board</code> gemacht haben).
+                </p>
+                <p>
+                    Zur Initialisierung eines neuen <code>GPoint</code> Objektes benötigen wir eine x und y Koordinate, die diesem dann "zugewiesen" (In anderen Worten: Dem Konstruktor übergeben) wird. Diese Koordinaten liefert uns der Parameter <code>MouseEvent e</code>. Ganz einfach formuliert übergibt das "System" (Was auch immer hier genau das System sein mag) der <code>mousePressed()</code> Methode ein Objekt vom Typ <code>MouseEvent</code>, in welchem z.B. die Koordinaten des Mauszeigers bei Auslösung des Events gespeichert sind. 
+                </p>
+                <p>
+                    Um nun in der Methode mit diesen Koordinaten etwas anfangen zu können, die in dem <code>e</code> Objekt (Das ja eigentlich der übergebene Parameter der Methode ist) enthalten sind, benutzen wir folgendes Code-Snippet:
+                </p>
+                <pre>
+                    <code class="JAVA">
+    int mx = e.getX();
+    int my = e.getY();
+                    </code>
+                </pre>
+                <p>
+                    So sind nach diesen beiden Zeilen die x und y Koordinate der Mausposition in <code>mx</code> und <code>my</code> gespeichert.
+                </p>
+                <div class="exercise">
+                    <p>
+                        Stelle eine Kopie deines Projekts in einem neuen Verzeichnis <code>GeomObj_D</code> her. Ergänze die <code>mousePressed()</code> Methode in der <code>Board</code> Klasse dann so, dass bei einem Mausklick an eine leere Stelle der Zeichnung ein neuer Punkt erzeugt wird.
+                    </p>
+                    <p>
+                        Dieser Punkt muss dann natürlich auch noch in die <code>geoObjects</code> Liste hinzugefügt werden.
+                    </p>
+                    <p>
+                        Zusätzlich sollte nach dem Einfügen eines neuen Punktes das <code>Board</code> neu geladen werden, damit der neue Punkt auch angezeigt wird. Dies lässt sich ganz einfach über einen Aufruf der Methode <code>repaint()</code> ganz am Ende deines Codes in der <code>mousePressed()</code> Methode erreichen. Wunder dich nicht, dass du nirgendwo direkt eine Definition dieser <code>repaint()</code> Methode siehst, <code>Board</code> erbt diese nämlich von <code>JPanel</code>.
+                    </p>
+                </div>
+                <div class="exercise">
+                    <p>
+                        Verschiebe den Quellcode für das Einfügen von Punkten vorübergehend(!) von <code>mousePressed()</code> nach <code>mouseReleased()</code> bzw <code>mouseDragged()</code>. Was ändert sich dabei jeweils am Verhalten des Programms?
+                    </p>
+                    <p>
+                        Wenn du etwas mehr wissen möchtest, dann kannst du über den Befehl <code>System.out.println(geoObjects.size());</code> im Konsolenfenster ausgeben lassen, wie groß die <code>geoObjects</code> Liste zum jeweiligen Zeitpunkt ist, d.h. wie viele Punkte schon hinzugefügt wurden.
+                        <br>
+                        Füge diesen dafür einfach in den Methoden <code>mousePressed()</code>, <code>mouseReleased()</code> bzw <code>mouseDragged()</code> ein.
+                    </p>
+                    <p>
+                        Zu guter Letzt musst du nun den verschobenen Quellcode wieder zurück in die <code>mousePressed()</code> Methode verschieben (und ggf. den <code>System.out...</code> Befehl wieder entfernen)
+                    </p>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Stufe 6: Jetzt wird's dynamisch!</h2>
+                <p>
+                    Nun können wir Punkte per Mausklick hinzufügen. Allerdings wollen wir nun diese plazierten Punkte auch verschieben können. 
+                    Dies regeln wir wie folgt:
+                </p>
+                <p>
+                    Wenn die Maustaste auf einen schon vorhandenen Punkt p (oder hinreichend dicht bei p) gedrückt wird, dann soll dieser Punkt als <code>dragPoint</code>, also als "zu verziehender" Punkt gespeichert werden.
+                    Wird nun die Maus bei weiterhin gedrückter Taste bewegt, soll dieser Punkt der Mausbewegung folgen, bis die Maustaste wieder losgelassen wird.
+                </p>
+                <p>
+                    Hierfür müssen wir natürlich erst einmal wissen, ob die Koordinaten des Mauszeigers beim Klicken in der Nähe, bzw. "ganz dicht" an einem bereits existierenden Punkt liegen. 
+                </p>
+                <p>
+                    Dies erledigen wir in der Methode <code>mousePressed()</code> von <code>Board</code>, die ja immer dann aufgerufen wird, wenn die primäre Maustaste gedrückt wurde. 
+                </p>
+                <p>
+                    Dann untersuchen wir als erstes einfach alle Punkte der <code>geoObjects</code> Liste darauf, wie dicht sie bei der aktuellen Mausposition liegen. Eine dafür benötigte Schleife findest du bereits in der <code>Board.paint()</code> Methode oder hier:
+                </p>
+                <pre>
+                    <code class="JAVA">
+    for (GPoint p: geoObjects) {
+        // Anweisungen hier einfügen
+    }                   
+                    </code>
+                </pre>
+                <p>
+                    Wie groß der Abstand zwischen zwei Punkten, also des Punktes p und der aktuellen Mausposition, ist, können wir über einen Aufruf der bereits in Schritt 3 geschriebenen Methode <code>abstandZu()</code> der Klasse <code>GPoint</code> berechnen.
+                </p>
+                <p>
+                    Hierfür übergeben wir dieser Methode einfach die Maus-Koordinaten, welche uns wie bereits in Schritt 5 erwähnt, über den Parameter <code>e</code> des Typs <code>MouseEvent</code> übergeben werden: <code>e.getX()</code> und <code>e.getY()</code> geben die jeweilige Koordinate zurück.
+                </p>
+                <p>
+                    Ist der Abstand nun kleiner als 4 (Pixel), so weisen wir der Variablen <code>dragPoint</code> den Punkt p zu; andernfalls behält <code>dragPoint</code> den Wert <code>null</code> (D.h. wir müssen ihn nicht erneut auf <code>null</code> setzen).
+                </p>
+                <p>
+                    Anschließend überprüfen wir dann, ob <code>dragPoint</code> nicht <code>null</code> ist. Wenn dies der Fall ist, soll dieser Punkt so lange der Maus folgen, bis die Maustaste wieder losgelassen wird.
+                </p>
+                <p>
+                    Dies erreichen wir, indem wir in der <code>mouseDragged()</code> Methode den gezogenen Punkt, also <code>draggedPoint</code> stets an die aktuelle Mausposition setzen.
+                    <br>
+                    Auch in dieser Methode erhalten wir die Koordinaten des Mauszeigers über den übergebenen Parameter <code>e</code> des Typs <code>MouseEvent</code>:
+                </p>
+                <pre>
+                    <code class="JAVA">
+    dragPoint.setX(e.getX());
+    dragPoint.setY(e.getY());
+                    </code>
+                </pre>
+                <p>
+                    Nun sind zwar die Koordinaten des gezogenen Punktes aktualisiert, jedoch wird diese Änderung noch nicht angezeigt.
+                    <br>
+                    Auch hier müssen wir die Methode <code>repaint()</code> zum Neuladen, also zum Aktualisieren des Fensters aufrufen.
+                </p>
+                <p>
+                    Was aber, wenn <code>dragPoint</code> gleich <code>null</code> ist? Dann wurde die primäre Maustaste an einer freien Stelle des Zeichenbreichs gedrückt. In dieser Situation sollten wir also einen neuen Punkt hinzufügen - Also genau das tun, was wir bereits in Schritt 5 getan haben! 
+                </p>
+                <p>
+                    Baue also den schon vorhandenen Quelltext zur Erzeugung eines neuen Punktes so in die neue <code>mousePressed()</code> Methode ein, dass er nur noch im Falle <code>dragPoint == null</code> ausgeführt wird.
+                </p>
+                <p>
+                    Abschließend müssen wir noch den Zugvorgang beim Loslassen der Maustaste beenden. 
+                    <br>
+                    Hierfür muss einfach in <code>mouseReleased()</code> die Variable <code>dragPoint</code> auf null zu setzen.
+                </p>
+                <div class="exercise">
+                    <p>
+                        Erstelle eine Kopie deines Projektes in einem neuen Verzeichnis <code>GeomObj_E</code> und ergänze die Maus-Methoden in der Klasse <code>Board</code> wie oben beschrieben.
+                    </p>
+                </div>
+                <div class="tipp">
+                    <p>
+                        Tips tips Tips
+                    </p>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Stufe 7: Andere geometrische Objekte: Strecken</h2>
+                <p>
+                    Nun wollen wir in unserer Applikation ja nicht nur mit Punkten arbeiten, sondern mit "komplexeren" geometrischen Objekten, wie z.B. Strecken.
+                </p>
+                <p>
+                    Hierfür benötigen wir logischerweise auch gleich eine neue Klasse <code>GLine</code>. 
+                </p>
+                <p>
+                    Genau wie die Punkte, sollen sich auch die Strecken mit Hilfe einer <code>draw()</code> Methode im Zeichenfenster darstellen können.
+                </p>
+                <p>
+                    Strecken haben stets einen Anfangs- und einen Endpunkt und (genau wie die Punkte) eine Farbe, somit ist das folgende UML-Diagramm für die Strecken naheliegend:
+                </p>
+                <div class="center">
+                    <img src="./assets/dia1.png" alt="" srcset="">
+                </div>
+                <p>
+                    Nun stoßen wir allerdings schnell auf ein großes Problem: Wenn wir die Klasse <code>GLine</code> fertig implementiert und eine Instanz dieser Klasse, also ein Strecken-Objekt erzeugt hätten, müssten wir dieses ja auch in die <code>geoObjects</code> Liste eintragen.
+                </p>
+                <p>
+                    Hier stellt sich jedoch JAVA quer - in die <code>geoObjects</code> Liste können ja nur Objekte vom Typ <code>GPoint</code> hinzugefügt werden. 
+                    <br>
+                    Gleichzeitig gibt es keine Möglichkeit, in einer solchen <code>ArrayList</code> mehrere Objekte von verschiedenen Typen, also mehrere Instanzen verschiedener Klassen zu speichern.
+                </p>
+                <p>
+                    Somit brauchen wir eine Art gemeinsame "Oberklasse" für <code>GPoint</code> und <code>GLine</code>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
