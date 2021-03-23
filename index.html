@@ -14,6 +14,7 @@
             <div class="section">
                 <h2>Testen_GPoint.java</h2>
                 <p>Eine neue Datei <code>Testen_GPoint.java</code> erstellen, dann den folgenden Quellcode einfach kopieren und einfügen und abschließend <code>Testen_GPoint.java</code> compilieren und ausführen.</p>
+                <p>Wird in der Konsole <code>Test was successful! Good job!</code> ausgegeben, dann funktioniert deine Methode perfekt. Siehst du stattdessen eine rote Fehlermeldung, dann stimmt leider etwas noch nicht ganz mit deiner Methode.</p>
                 <pre>
                     <code>
     public class Testen_GPoint {
@@ -28,6 +29,7 @@
     
         public void test() throws Exception {
             if(!(p.abstandZu(4, 4) == this.distanceTo(4, 4))) throw new Exception();
+            else System.out.println("Test was successful! Good job!");
         }
     
         public double distanceTo(int mx, int my){
@@ -189,10 +191,15 @@
                         Erstelle eine Kopie deines Projektes in einem neuen Verzeichnis <code>GeomObj_E</code> und ergänze die Maus-Methoden in der Klasse <code>Board</code> wie oben beschrieben.
                     </p>
                 </div>
-                <div class="tipp">
+                <div class="tipp" style="font-family: monospace !important">
                     <p>
-                        Tips tips Tips
+                        In <code>mousePressed()</code> {
                     </p>
+                    <p style="text-indent: 10px">for-Schleife {</p>
+                    <p style="padding-left: 30px">if-Schleife (" <i> Ist der Abstand zwischen Punkt <code>p</code>(der Laufvariablen der Schleife) und dem Punkt mit den Koordinaten (<code>e.getX()</code>|<code>e.getY()</code>) kleiner als 4?" </i>) { </p>
+                    <p style="padding-left: 50px">Setze dragPoint</p>
+                    <p style="padding-left: 10px">repaint</p>
+                    <p>...</p>
                 </div>
             </div>
             <div class="section">

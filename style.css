@@ -67,14 +67,14 @@ pre > code[class]::before {
     padding: 20px;
     padding-bottom: 5px;
     border: solid 2px #6c5f7c;
-    box-shadow: 4px 4px 0 #6c5f7c;
+    box-shadow: -4px 4px 0 #6c5f7c;
 }
 .tipp{
     margin-top: 40px;
     padding: 20px;
     padding-bottom: 5px;
     border: solid 2px #5ca274;
-    box-shadow: 4px 4px 0 #5ca274;
+    box-shadow: -4px 4px 0 #5ca274;
 }
 img{
     width: 120%;
@@ -92,6 +92,7 @@ img:hover{
 .center{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 @media screen and (max-width: 1000px){
     .page{
