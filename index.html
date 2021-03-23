@@ -89,6 +89,20 @@
                     </code>
                 </pre>
                 <p>
+                    In dieser Schleife ist eine Art "Laufvariable" definiert, <code>p</code> von Typ <code>GPoint</code>. Diese Schleife "läuft" über die Liste <code>geoObjects</code> und ihre Laufvariable <code>p</code> nimmt in jedem Durchlauf den Wert an der Stelle der Liste an, an der die Schleife momentan steht.
+                    <br>
+                    D.h. wenn wir annehmen, dass an der nullten Stelle von <code>geoObjects</code> das Objekt <code>GPoint point1 = new GPoint(1, 1)</code> steht, so würde die Laufvariable <code>p</code> im allerersten Schleifendurchlauf die Referenz des Objekts <code>point</code> annehmen.
+                </p>
+                <pre>
+                    <code class="JAVA">
+    ArrayList&lt;GPoint&gt; geoObjects = new ArrayList&lt;GPoint&gt;();
+    
+    for (GPoint p: geoObjects) {
+        // Anweisungen hier einfügen
+    }                   
+                    </code>
+                </pre>
+                <p>
                     Wie groß der Abstand zwischen zwei Punkten, also des Punktes p und der aktuellen Mausposition, ist, können wir über einen Aufruf der bereits in Schritt 3 geschriebenen Methode <code>abstandZu()</code> der Klasse <code>GPoint</code> berechnen.
                 </p>
                 <p>
