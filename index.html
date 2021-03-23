@@ -12,6 +12,41 @@
     <div class="container">
         <div class="page">
             <div class="section">
+                <h2>Testen_GPoint.java</h2>
+                <p>Eine neue Datei <code>Testen_GPoint.java</code> erstellen, dann den folgenden Quellcode einfach kopieren und einfügen und abschließend <code>Testen_GPoint.java</code> compilieren und ausführen.</p>
+                <pre>
+                    <code>
+    public class Testen_GPoint {
+        private GPoint p;
+        public int x, y;
+    
+        public Testen_GPoint(){
+            this.x = 2;
+            this.y = 2;
+            p = new GPoint(x, y);
+        }
+    
+        public void test() throws Exception {
+            if(!(p.abstandZu(4, 4) == this.distanceTo(4, 4))) throw new Exception();
+        }
+    
+        public double distanceTo(int mx, int my){
+            double dx, dy, d;
+            dx = (double) mx - this.x;
+            dy = (double) my - this.y;
+            d = Math.sqrt(dx * dx + dy * dy);
+            return d;
+        }
+    
+        public static void main(String[] args) throws Exception {
+            Testen_GPoint pointTest = new Testen_GPoint();
+            pointTest.test();
+        }
+    }
+                    </code>
+                </pre>
+            </div>
+            <div class="section">
                 <h2>Stufe 5: Neue Punkte erstellen</h2>
                 <p>
                     Die Punkte sollen nun ja, nicht wie zum Ende der vorherigen Stufe beschrieben im Konstruktor der Board-Klasse, vom  Benutzer erzeugt werden. So soll bei einem Mausklick ein neues <code>GPoint</code> Objekt (mit den Koordinaten der Stelle des Klicks auf der Zeichenfläche) erstellt und in die Liste <code>geoObjects</code> eingefügt werden.                    
@@ -93,13 +128,21 @@
                     <br>
                     D.h. wenn wir annehmen, dass an der nullten Stelle von <code>geoObjects</code> das Objekt <code>GPoint point1 = new GPoint(1, 1)</code> steht, so würde die Laufvariable <code>p</code> im allerersten Schleifendurchlauf die Referenz des Objekts <code>point</code> annehmen.
                 </p>
+                <p>
+                    Hier die ganze Erklärung in Code ausgeschrieben:
+                </p>
                 <pre>
                     <code class="JAVA">
     ArrayList&lt;GPoint&gt; geoObjects = new ArrayList&lt;GPoint&gt;();
-    
+    GPoint point1 = new GPoint(1, 1);
+    geoObjects.add(point1);
+
     for (GPoint p: geoObjects) {
-        // Anweisungen hier einfügen
+        System.out.println("X: " + p.getX() + "; Y: " + p.getY());
     }                   
+
+    // Gibt aus: 
+    // X: 1; Y: 1
                     </code>
                 </pre>
                 <p>
