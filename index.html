@@ -57,7 +57,7 @@
                     Um dieses Mausklick-Event "abzufangen", können wir die Methode <code>Board.mousePressed(MouseEvent e)</code> benutzen. Diese wird von JAVA nämlich genau dann aufgerufen, wenn die primäre (also die linke) Maustaste gedrückt wurde.
                 </p>
                 <p>
-                    Also schreiben wir in diese unseren Quellcode, der einen neuen Punkt erzeugt und der <code>geoObjects</code> Liste hinzufügt (Nach demselben Prinzip, wie wir es bereits im Konstruktor von <code>Board</code> gemacht haben).
+                    Also schreiben wir in diese <code>mousePressed()</code> Methode unseren Quellcode, der einen neuen Punkt erzeugt und der <code>geoObjects</code> Liste hinzufügt (Nach demselben Prinzip, wie wir es bereits im Konstruktor von <code>Board</code> gemacht haben).
                 </p>
                 <p>
                     Zur Initialisierung eines neuen <code>GPoint</code> Objektes benötigen wir eine x und y Koordinate, die diesem dann "zugewiesen" (In anderen Worten: Dem Konstruktor übergeben) wird. Diese Koordinaten liefert uns der Parameter <code>MouseEvent e</code>. Ganz einfach formuliert übergibt das "System" (Was auch immer hier genau das System sein mag) der <code>mousePressed()</code> Methode ein Objekt vom Typ <code>MouseEvent</code>, in welchem z.B. die Koordinaten des Mauszeigers bei Auslösung des Events gespeichert sind. 
@@ -138,20 +138,29 @@
     ArrayList&lt;GPoint&gt; geoObjects = new ArrayList&lt;GPoint&gt;();
     GPoint point1 = new GPoint(1, 1);
     geoObjects.add(point1);
+    GPoint point2 = new GPoint(2, 2);
+    geoObjects.add(point2);
 
     for (GPoint p: geoObjects) {
         System.out.println("X: " + p.getX() + "; Y: " + p.getY());
     }                   
 
-    // Gibt aus: 
+    // Gibt in der Konsole aus: 
     // X: 1; Y: 1
+    // X: 2; Y: 2
                     </code>
                 </pre>
                 <p>
-                    Wie groß der Abstand zwischen zwei Punkten, also des Punktes p und der aktuellen Mausposition, ist, können wir über einen Aufruf der bereits in Schritt 3 geschriebenen Methode <code>abstandZu()</code> der Klasse <code>GPoint</code> berechnen.
+                    Wie groß der Abstand zwischen zwei Punkten, also des Punktes <code>p</code> und der aktuellen Mausposition, ist, können wir über einen Aufruf der bereits in Schritt 3 geschriebenen Methode <code>abstandZu()</code> der Klasse <code>GPoint</code> berechnen.
                 </p>
                 <p>
                     Hierfür übergeben wir dieser Methode einfach die Maus-Koordinaten, welche uns wie bereits in Schritt 5 erwähnt, über den Parameter <code>e</code> des Typs <code>MouseEvent</code> übergeben werden: <code>e.getX()</code> und <code>e.getY()</code> geben die jeweilige Koordinate zurück.
+                </p>
+                <p>
+                    Wir erinnern uns: Da die Methode <code>abstandZu()</code> zur Klasse <code>GPoint</code> gehört und wir sie als <code>public</code> definiert haben, können wir sie über jedes Objekt vom Typ <code>GPoint</code> aufrufen. So dann auch über die Laufvariable <code>p</code> der Schleife, da diese ja vom Typ <code>GPoint</code> ist und in jedem Durchlauf das Element in der <code>geoObjects</code> Liste an der momentanen Stelle in ihr gespeichert wird. Darüber lässt sich ganz einfach der Abstand zwischen einem jeden Punkt, der auch ein Element in <code>geoObjects</code> ist und dem Mauscursor berechnen, indem wir über das Objekt <code>p</code> (Die Laufvariable) <code>abstandZu()</code> aufrufen und dieser Methode die Koordinaten des Mauscursors, also <code>e.getX()</code> und <code>e.getY()</code> übergeben.
+                </p>
+                <p>
+                    Dieser Methodenaufruf liefert der Methodendefinition nach einen Wert von Typ <code>double</code>, den Abstand zwischen den beiden Punkten, also genau das, was wir eigentlich brauchen.
                 </p>
                 <p>
                     Ist der Abstand nun kleiner als 4 (Pixel), so weisen wir der Variablen <code>dragPoint</code> den Punkt p zu; andernfalls behält <code>dragPoint</code> den Wert <code>null</code> (D.h. wir müssen ihn nicht erneut auf <code>null</code> setzen).
@@ -170,6 +179,7 @@
     dragPoint.setY(e.getY());
                     </code>
                 </pre>
+                <p></p>
                 <p>
                     Nun sind zwar die Koordinaten des gezogenen Punktes aktualisiert, jedoch wird diese Änderung noch nicht angezeigt.
                     <br>
@@ -195,11 +205,29 @@
                     <p>
                         In <code>mousePressed()</code> {
                     </p>
-                    <p style="text-indent: 10px">for-Schleife {</p>
-                    <p style="padding-left: 30px">if-Schleife (" <i> Ist der Abstand zwischen Punkt <code>p</code>(der Laufvariablen der Schleife) und dem Punkt mit den Koordinaten (<code>e.getX()</code>|<code>e.getY()</code>) kleiner als 4?" </i>) { </p>
-                    <p style="padding-left: 50px">Setze dragPoint</p>
-                    <p style="padding-left: 10px">repaint</p>
-                    <p>...</p>
+                    <p style="padding-left: 20px">if-Schleife ("<i>Ist <code>dragPoint</code> gleich null?</i>") {</p>
+                    <p style="padding-left: 40px">for-Schleife {</p>
+                    <p style="padding-left: 60px">if-Schleife (" <i> Ist der Abstand zwischen Punkt <code>p</code>(der Laufvariablen der Schleife) und dem Punkt mit den Koordinaten (<code>e.getX()</code>|<code>e.getY()</code>) kleiner als 4?" </i>) { </p>
+                    <p style="padding-left: 80px">Setze <code>dragPoint</code></p>
+                    <p style="padding-left: 60px">}</p>
+                    <p style="padding-left: 40px">}</p>
+                    <p style="padding-left: 40px">repaint</p>
+                    <p style="padding-left: 20px">}</p>
+                    <p>}</p>
+                </div>
+                <div class="tipp" style="font-family: monospace !important">
+                    <p>
+                        In <code>mouseDragged()</code> {
+                    </p>
+                    <p style="text-indent: 20px">Setze neue Koordinaten für <code>dragPoint</code></p>
+                    <p>}</p>
+                </div>
+                <div class="tipp" style="font-family: monospace !important">
+                    <p>
+                        In <code>mouseDragged()</code> {
+                    </p>
+                    <p style="text-indent: 20px">Reset <code>dragPoint</code> (auf <code>null</code>)</p>
+                    <p>}</p>
                 </div>
             </div>
             <div class="section">

@@ -76,6 +76,9 @@ pre > code[class]::before {
     border: solid 2px #5ca274;
     box-shadow: -4px 4px 0 #5ca274;
 }
+.tipp p, .tipp p i{
+    font-family: monospace;
+}
 img{
     width: 120%;
     height: auto;
@@ -100,5 +103,11 @@ img:hover{
     }
     img {
         width: 110%;
+    }
+}
+
+@media screen and (max-width: 730px){
+    pre{
+        overflow-x: scroll;
     }
 }
