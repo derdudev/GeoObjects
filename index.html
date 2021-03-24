@@ -209,7 +209,7 @@
                     <p>
                         In <code>mousePressed()</code> {
                     </p>
-                    <p style="padding-left: 20px">if-Schleife ("<i>Ist <code>dragPoint</code> gleich null?</i>") {</p>
+                    <p style="padding-left: 20px">if-Schleife ("<i>Ist <code>dragPoint</code> nicht gleich null?</i>") {</p>
                     <p style="padding-left: 40px">for-Schleife {</p>
                     <p style="padding-left: 60px">if-Schleife (" <i> Ist der Abstand zwischen Punkt <code>p</code>(der Laufvariablen der Schleife) und dem Punkt mit den Koordinaten (<code>e.getX()</code>|<code>e.getY()</code>) kleiner als 4?" </i>) { </p>
                     <p style="padding-left: 80px">Setze <code>dragPoint</code></p>
@@ -260,7 +260,10 @@
                     Gleichzeitig gibt es keine Möglichkeit, in einer solchen <code>ArrayList</code> mehrere Objekte von verschiedenen Typen, also mehrere Instanzen verschiedener Klassen zu speichern.
                 </p>
                 <p>
-                    Somit brauchen wir eine Art gemeinsame "Oberklasse" für <code>GPoint</code> und <code>GLine</code>.
+                    Somit brauchen wir eine Art gemeinsame "Oberklasse" für <code>GPoint</code> und <code>GLine</code>. Beide Klassen beschreiben ja GeoObjekte, also bietet sich für den Namen der übergeordneten Oberklasse <code>GeoObjects</code> prima an.
+                </p>
+                <p>
+                    Diese Klasse soll nun alle Eigenschaften (also Attribute) und Methoden beinhalten, die im oberen UML Diagramm sowohl in <code>GPoint</code> und <code>GLine</code> vorhanden sind.
                 </p>
             </div>
         </div>
