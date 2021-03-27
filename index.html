@@ -140,7 +140,31 @@
                     </code>
                 </pre>
                 <p>Jedoch können wir bisher immer noch nicht sehen, was unsere eigene <code>sum()</code> Methode denn zurückgibt.</p>
-                
+                <p>Dafür müssen wir sie ja erstmal irgendwo aufrufen und ihr dabei zwei Werte von Typ <code>int</code> übergeben, denn so haben wir es ja in unserer Methoden-Definition festgelegt.</p>
+                <p>Hierfür deklarieren wir in der <code>main()</code> Methode eine Variable <code>addition</code> vom Typ <code>int</code>.</p>
+                <p>Anschließend weisen wir ihr einen Wert zu. Jedoch nicht wie bisher direkt eine Zahl, sondern den Wert, den <code>sum()</code> zurückgibt, wenn wir ihr zwei Ganzzahlen übergeben.</p>
+                <p>Über den Befehl <code>System.out.prinln()</code> (Was im übrigen auch einfach nur ein Methoden-Aufruf ist), können wir uns Werte auf der Konsole ausgeben lassen. Nämlich genau den Wert, den wir ihr als Parameter (oder auch Argument genannt) übergeben.</p>
+                <p>Damit sieht unser fertiges Additions-Programm wie folgt aus:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            int addition;
+            addition = sum(2, 3);
+            System.out.println(addition);
+        }
+
+        public static int sum(int sum1, int sum2){
+            return sum1 + sum2;
+        }
+    }
+
+    // Nach Complilieren und Ausführen wird auf der Konsole ausgegeben:
+    // 5
+                    </code>
+                </pre>
+                <p>Versuche doch einfach mal eine Methode <code>mul()</code> für die Multiplikation zweier Ganzzahlen zu schreiben. Oder wie sieht es denn aus, wenn wir drei statt nur zwei Zahlen addieren wollen?</p>
+                <p>Probiere einfach ein bisschen herum, das fördert nur dein Verständnis!</p>
             </div>
             <div class="section">
                 <h2>Stufe 1</h2>
