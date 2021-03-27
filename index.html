@@ -16,6 +16,48 @@
                 <p>Ich besitze keinerlei Rechte an dem folgenden Gedankengut, da dies zu einem Großteil auf der Arbeit vom RP Freiburg und seiner Version dieses ABs basiert.</p>
             </div>
             <div class="section">
+                <h2>Basics</h2>
+                <p>In diesem Absatz gehe ich so verständlich wie möglich auf einige Basis-Konzepte von Java ein und versuche sie anhand von einfachen Beispiel zu erläutern.</p>
+            </div>
+            <div class="section">
+                <h2>Basics - Das Konzept von objektorientierter Programmierung</h2>
+                <p>In objektorientierter Programmierung (Absofort mit OOP abgekürzt) dreht sich alles um <b>Objekte</b>.</p>
+                <p>Die erste Frage, die sich einem dann hierbei stellt, ist womöglich: <i>Schön, was aber ist jetzt ein Objekt? Also was kann es und wie macht man eins?</i></p>
+                <p>Diese Frage lässt sich am besten mit einem praktischen Beispiel erläutern. Gehen wir nun einmal davon aus, dass wir irgendwie in der Welt des Programmierens in Java ein Auto darstellen wollen.</p>
+                <p>Nun, genau für solche Fälle sind Objekte gedacht. Wir betrachten ein Auto nun also nicht einfach nur als Ding, sondern als Objekt. Ein Auto hat bestimmte Eigenschaften und kann bestimmte Dinge tun. Genau so soll also auch ein Objekt funktionieren.</p>
+                <p>Die Eigenschaften eines Objektes nennt man hierbei <b>Attribute</b>, während die Fähigkeiten eines Objektes, also die Dinge, die es "tun kann", <b>Methoden</b> genannt werden.</p>
+                <p>Wie erstellen wir nun aber ein Auto?</p>
+                <p>Genau hier kommen dann <b>Klassen</b> ins Spiel. Eine Klasse kann als Blueprint, als Bauplan für ein Objekt angesehen werden, der genau festlegt, wie ein Objekt einmal auszusehen hat, d.h. was es alles für Eigenschaften und Fähigkeiten haben soll.</p>
+                <p>In einer Klasse definieren wir Attribute und Methoden, über die dann ein Objekt dieser Klasse (Auch genannt <b>Instanz</b>) verfügen soll.</p>
+                <p>Um das alles einmal praktisch zu veranschaulichen, versuchen wir nun einfach einmal ein sehr einfaches Auto Objekt in Java zu erstellen.</p>
+                <p>Hierfür müssen wir uns zu allererst einmal überlegen, welche Eigenschaften und Fähigkeiten ein Auto überhaupt besitzen soll.</p>
+                <p>Nun, für unser vereinfachtes Beispiel hat ein Auto auf jeden Fall eine Farbe, einen Modelname und kann hupen und fahren.</p>
+                <p>Damit hätten wir zwei Attribute und zwei Fähigkeiten, die ein Auto Objekt also besitzen muss.</p>
+                <p>Um nun ein Auto Objekt erstellen zu können, müssen wir erstmal den Bauplan für das Auto, also die Klasse für das Auto entwerfen.</p>
+                <p>Diese nennen wir passend <code>Auto</code>.</p>
+                <p>Sie soll zwei Attribute, eine Farbe <code>color</code> und einen Modelname <code>modelName</code> und zwei Methoden <code>hupen()</code> und <code>fahren()</code> haben.</p>
+            </div>
+            <div class="section">
+                <h2>Basics - Encapsulation</h2>
+                <p>Wir bleiben weiter bei den Beispiel des Autos.</p>
+                <p>Um uns nun weiter der Erstellung der <code>Auto</code>-Klasse anzunähern, wenden wir auch gleich ein sehr wichtiges Konzept der OOP an: Encapsulation (DE: Verkapselung).</p>
+                <p>In dieser geht es darum die Eigenschaften verschiedener Klassen, also später Objekten, voneinander abzugrenzen. Dies können wir durch die Verwendung von Sichtbarkeits-Modifizierern erreichen. Durch diese legen wir nämlich fest, auf welche Eigenschaften welches Objekt zugreifen kann.</p>
+                <p>In Java stehen uns die folgenden zur Verfügung: <code>public</code>, <code>private</code> und <code>protected</code>.</p>
+                <p>Der Sichtbarkeits-Modifizierer <code>public</code> bedeutet, dass auf dieses Attribut oder diese Methode direkt von außen zugegriffen werden kann. Das heißt, dass auch von außerhalb des Objektes direkt Änderungen an einem Attribut (das also als <code>public</code> definiert wurde) eines anderen Objektes vorgenommen werden können.</p>
+                <p>Das komplette Gegenteil von <code>public</code> ist, wie es der Name schon vermuten lässt, <code>private</code>. Auf ein Attribut, was als <code>private</code> definiert wurde, kann niemals direkt von außerhalb des Objektes darauf zugegriffen werden. Um jedoch immernoch Änderungen an diesem Attribut vornehmen zu können, werden sogenannte <b>Getter</b> und <b>Setter</b> Methoden verwendet.</p>
+                <p>Das Praktische an diesen Bezeichnungen ist, dass sie bereits im Vorhinein quasi alles über ihre Funktion verraten.</p>
+                <p>Über einen Getter können wir den Wert eines Attributes lesen, ohne dabei direkt von außen auf dieses Attribut zuzugreifen. Wie der Name vermuten lässt, "getten" wir etwas durch ihn - Er gibt etwas zurück, nämlich den Wert des privaten Attributes.</p>
+                <p>Ein Setter erlaubt es uns, ihm einen Wert zu übergeben und dann den Wert des entsprechenden Attributes auf diesen übergebenen Wert zu setzen. </p>
+                <p>Über diese beiden Umwege können wir also, obwohl wir ein Attribut als <code>private</code> definiert haben, dessen Wert noch ändern. Der wichtige Unterschied hierbei ist, dass wir es in diesem Fall allerdings nicht direkt tun.</p>
+                <p>Das gleiche, was ich nun bereits für Attribute erläutert habe, gilt auch für Methoden (nahezu). Bei Methoden weisen wir nun jedoch keinen Wert mehr zu, sondern wollen etwas ausführen, etwas tun.</p>
+                <p>Damit regeln die Sichtbarkeits-Modifizierer von Methoden "nur noch", ob auf die jeweiligen Methoden von außerhalb oder nur von innerhalb eines Objektes aus zugegriffen werden kann.</p>
+            </div>
+            <div class="section">
+                <h2>Stufe 1</h2>
+                <p>Wir beginnen mit dem Erstellen des einfachsten geometrischen Objektes: Dem Punkt. Dabei soll ein jeder Punkt die folgenden Eigenschaften haben:</p>
+                <p>Eine <code>x</code> und <code>y</code> Koordinate und eine Darstellungsfarbe <code>color</code>.</p>
+            </div>
+            <div class="section">
                 <h2>Testen_GPoint.java</h2>
                 <p>Eine neue Datei <code>Testen_GPoint.java</code> erstellen, dann den folgenden Quellcode einfach kopieren und einfügen und abschließend <code>Testen_GPoint.java</code> compilieren und ausführen.</p>
                 <p>Wird in der Konsole <code>Test was successful! Good job!</code> ausgegeben, dann funktioniert deine Methode perfekt. Siehst du stattdessen eine rote Fehlermeldung, dann stimmt leider etwas noch nicht ganz mit deiner Methode.</p>
