@@ -51,6 +51,90 @@
                 <p>Über diese beiden Umwege können wir also, obwohl wir ein Attribut als <code>private</code> definiert haben, dessen Wert noch ändern. Der wichtige Unterschied hierbei ist, dass wir es in diesem Fall allerdings nicht direkt tun.</p>
                 <p>Das gleiche, was ich nun bereits für Attribute erläutert habe, gilt auch für Methoden (nahezu). Bei Methoden weisen wir nun jedoch keinen Wert mehr zu, sondern wollen etwas ausführen, etwas tun.</p>
                 <p>Damit regeln die Sichtbarkeits-Modifizierer von Methoden "nur noch", ob auf die jeweiligen Methoden von außerhalb oder nur von innerhalb eines Objektes aus zugegriffen werden kann.</p>
+                <p>Ist eine Methode als <code>public</code> definiert, kann auch von außerhalb des Objektes auf die Methode zugegriffen werden. Bei <code>private</code> ist das genaue Gegenteil der Fall.</p>
+                <p>Was genau das alles nun im Klartext bedeutet, wird hoffentlich bei der weiteren Ausführung der Erstellung unserer <code>Auto</code> Klasse klar.</p>
+                <p>Abschließend sei zu diesem Absatz noch gesagt, dass der Sichtbarkeits-Modifizierer <code>protected</code> eine besondere Funktion hat, auf die ich erst im weiteren Verlauf dieses ABs eingehen werde. Bisher nur soviel: Seine Funktion hat etwas mit einem weiteren extrem wichtigen Konzept der OOP zu tun, der Vererbung. Hierzu jedoch später mehr.</p>
+            </div>
+            <div class="section">
+                <h2>Basics - Methoden</h2>
+                <p>Zuvor bin ich bereits auf Methoden im Allgemeinen ein wenig über die Beschreibung der Getter und Setter eingegangen.</p>
+                <p>Hierzu sind bestimmt einige Fragen entstanden, die ich nun versuchen werde in diesem Abschnitt zu erläutern.</p>
+                <p>Was genau bedeutet es denn, wenn einer Methode ein oder mehrere Werte übergeben werden?</p>
+                <p>Um sich das auf eine sehr simple Art zu veranschaulichen, betrachten wir im folgenden eine Methode als eine Art mathematische Funktion.</p>
+                <p>In diesem Beispiel sollte dann auch gleich das Konzept einer Methodenrückgabe klarer werden.</p>
+                <p>Wir versuchen nun einfach mal (unabhängig zu dem Auto Beispiel aus den zuvorigen Abschnitten!) eine Methode für das Summieren zweier Ganzzahlen zu schreiben.</p>
+                <p>Dafür müssen wir, wie bei einer mathematischen Funktion, erst einmal einen oder mehrere Werte in sie "hineinstecken", um einen weiteren "heraus", also zurückzubekommen.</p>
+                <p>In Java müssen wir beachten, dass Java es vorschreibt (abgesehen von lambda-Funktionen - doch diese lassen wir in diesem AB außer Acht, bei mehr Interesse gerne direkt bei mir nachfragen), dass jede Funktion in einer Klasse steht und damit im Endeffekt nur über ein Objekt dieser Klasse oder in einem Objekt dieser Klasse aufgerufen werden kann.</p>
+                <p>Ferner startet jedes Java-Programm immer in der <code>main</code> Methode, die sich in jedem Java-Programm in der folgenden Form auffinden lässt: </p>
+                <pre>
+                    <code class="JAVA">
+    public static void main(String[] args) {
+        // Anweisungen
+    }
+                    </code>
+                </pre>
+                <p>Hier finden wir auch gleich einen nun bereits bekannten Sichtbarkeits-Modifizierer, <code>public</code>, der von einem weiteren bisher unbekanntnen Schlüsselwort <code>static</code> und schließlich <code>void</code> gefolgt wird, bis wir schließlich beim Methodennamen <code>main</code> angekommen sind.</p>
+                <p>In den Klammern folgt dann ein sogenannter Parameter, <code>args</code> vom Typ <code>String[]</code> (Was genau das nun bedeutet, ist zum jetzigen Stand erst einmal unwichtig). Auf dieses Konzept gehe ich nun im Bezug auf unsere Summen-Methode ein.</p>
+                <p>Parameter erlauben es uns, einer Methode Werte von außen zu übergeben, mit denen wir dann etwas in der Methode anstellen können.</p>
+                <p>So müssen wir, um das Ergebnis einer Addition von zwei Ganzzahlen zu erhalten, unserer Methode zwei Parameter übergeben: Den ersten und den zweiten Summanden.</p>
+                <p>Da wir nur mit ganzen Zahlen rechnen, sollen beide Parameter von Typ <code>int</code> sein und die Namen <code>sum1</code> und <code>sum2</code> haben.</p>
+                <p>Diese zwei übergebenen Werte rechnen wir in unserer Methode zusammen und geben das Ergebnis wieder zurück.</p>
+                <p>So könnte eine relativ lange Version für unsere Additions-Methode wie folgt aussehen:</p>
+                <pre>
+                    <code class="JAVA">
+    public int sum(int sum1, int sum2){
+        int result = sum1 + sum2;
+        return result;
+    }
+                    </code>
+                </pre>
+                <p>Wenn wir nun diese Methode einmal mit der <code>main</code> Methode vergleichen, fällt direkt etwas auf: Wo ist das <code>void</code> der <code>main</code> Methode hin?</p>
+                <p>Nun, über dieses <code>void</code> sagen wir dem Java-Compiler, dass eine Methode <i>keinen</i> Wert zurückgibt, also genau das, was wir nicht wollen.</p>
+                <p>Gerade unsere Additions-Methode soll ja aber das Ergebnis dieser Addition zurückgeben.</p>
+                <p>Also müssen wir den Rückgabetypen dieser Methode ändern. Geben wir etwas in einer Methode zurück, müssen wir festlegen, von welchem Typ der zurückgegebene Wert sein wird.</p>
+                <p>In unserem Fall wissen wir ja, dass wir nur mit Ganzzahlen, also keinen Kommazahlen rechnen und können demnach den Datentyp <code>int</code> als Rückgabetyp festlegen.</p>
+                <p>Und wie geben wir nun einen Wert zurück?</p>
+                <p>Dies erledigen wir über die <code>return</code> Anweisung. Der Wert, der ihr folgt, wird zurückgegeben.</p>
+                <p>In unserer Additions-Methode geben wir den Wert von der Variablen <code>result</code> des Typs <code>int</code> zurück. In dieser Variablen ist das eigentliche Ergebnis der Addition der beiden Summanden gespeichert.</p>
+                <p>Um die Methode ein wenig kürzer zu halten, wäre folgendes auch vollkommen legitim:</p>
+                <pre>
+                    <code class="JAVA">
+    public int sum(int sum1, int sum2){
+        return sum1 + sum2;
+    }
+                    </code>
+                </pre>
+                <p>Dann testen wir doch einfach mal unsere Methode!</p>
+                <p>Da in Java alles in Klassen stehen muss, müssen wir also erst eine neue Datei erstellen und in dieser eine Klasse definieren, die allerdings keinerlei Eigenschaften besitzen muss. In ihr muss sich nur die <code>main</code> Methode befinden. Denn in dieser startet ja die Ausführung unseres Java-Programms.</p>
+                <p>Weiter ist es in Java notwendig die eigentliche Datei so zu nennen, wie die in ihr definierte Klasse heißt.</p>
+                <p>Wir nennen unsere "Anfangsklasse" einfach <code>Main</code> und fügen in diese das Code-Snippet der <code>main</code> Methode von weiter oben ein.</p>
+                <p>Damit sollte in der Datei <code>Main.java</code> nun folgendes stehen:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            int summe = sum(2, 3);
+            System.out.println(summe);
+        }
+    }
+                    </code>
+                </pre>
+                <p>Um nun unsere eigene Methode auszuprobieren, müssen wir diese einfach in die <code>Main</code> Klasse einfügen und (!) das Schlüsselwort <code>static</code> hinzufügen.</p>
+                <p>Warum genau dies nun nötig ist würde nun etwas den Rahmen sprengen, deshalb sei lediglich gesagt, dass es notwendig ist und sonst einen Fehler geben würde, weil wir unsere Methode später aus der <code>main</code> Methode und damit aus einem statischen Kontext ausrufen werden, wodurch die aufgerufene Methode automatisch auch als <code>static</code> definiert sein muss.</p>
+                <p>Damit sieht die fertige <code>Main</code> Klasse nun so aus:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // Anweisungen
+        }
+
+        public static int sum(int sum1, int sum2){
+            return sum1 + sum2;
+        }
+    }
+                    </code>
+                </pre>
             </div>
             <div class="section">
                 <h2>Stufe 1</h2>
