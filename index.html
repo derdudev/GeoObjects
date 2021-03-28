@@ -167,10 +167,57 @@
                 <p>Probiere einfach ein bisschen herum, das fördert nur dein Verständnis!</p>
             </div>
             <div class="section">
+                <h2>Basics - Zurück zum Auto</h2>
+                <p>Nun mit unserem neuen Wissen wollen wir das Beispiel von einem Auto Objekt einmal zuende führen.</p>
+                <p>Um einmal zu rekapitulieren:</p>
+                <ul>
+                    <li>Unser Auto Objekt soll folgende Attribute und Methoden besitzen: <code>color</code>, <code>model</code>, <code>fahren()</code> und <code>hupen()</code></li>
+                    <li>Nach dem Konzept der Encapsulation müssen wir uns nun überlegen, welche Attribute und Methoden nach außen sichtbar sein sollen und welche nicht. In anderen Worten: Auf welche Eigenschaften von außen zugegriffen werden kann.</li>
+                    <li>Zusätzlich müssen wir auch erst einmal überlegen, was genau wir in den Attributen speichern wollen. Daraus legen wir dann die entsprechenden Datentypen fest.</li>
+                </ul>
+                <p>Was muss denn nun alles von außen direkt aufrufbar sein?</p>
+                <p>Nun, <code>color</code>, <code>model</code> müssen ja eigentlich nicht wirklich direkt von außen abrufbar sein. Eventuell wollen wir sie im Laufe des Programmes einmal auslesen oder sogar ändern, ein Auto kann ja auch neu lackiert werden und das können wir dann ja über den indirekten Zugriff über die Getter und Setter regeln.</p>
+                <p>Das heißt, dass wir <code>color</code> und <code>model</code> auf jeden Fall als <code>private</code> definieren werden.</p>
+                <p>Bleibt noch die Frage des Datentyps.</p>
+                <p>In <code>color</code> soll ja eine Farbe gespeichert werden. Dies könnten wir zwar ganz einfach durch eine Zeichenkette, also einen <code>String</code> realisieren, indem wir z.B. einfach den hex-code einer Farbe als <code>String</code> in <code>color</code> speichern, jedoch ist das relativ unpraktisch.</p>
+                <p>Da kommt es uns nur gelegen, dass Java bereits eine eigene Klasse <code>Color</code> definiert hat, die es uns erlaubt simpel <code>Color</code> Objekte zu erstellen, in denen wir dann die Werte für R (Rot), G (Grün) und B (Blau) speichern können und uns zusätzlich noch einige andere sehr praktische Methoden zur Verfügung stehen.</p>
+                <p>Wichtig hierbei ist noch, dass wir, um diese Klasse in unserem Quellcode verwenden zu können, sie erst über den folgenden Befehl, den wir später ganz oben in die erste Zeile unseres Programms schreiben, importieren müssen.</p>
+                <pre>
+                    <code class="JAVA">
+    import java.awt.Color;
+                    </code>
+                </pre>
+                <p>Um ein Objekt <code>color</code> des Typs <code>Color</code> zu erstellen, verwenden wir folgendes Code-Snippet:</p>
+                <pre>
+                    <code class="JAVA">
+    Color color = new Color(255, 0, 0);
+                    </code>
+                </pre>
+                <p>Bevor ich nun genauer auf die Erklärung dieses Snippets eingehe, erst noch ein paar Worte zu der Formulierung "<i>Ein Objekt ... des Typs ...</i>":</p>
+                <p>Mit dieser Formulierung lässt sich ausdrücken mithilfe welcher Klasse ein Objekt erstellt wird.</p>
+                <p>So bedeutet in unserem Fall "<i>ein Objekt <code>color</code> des Typs <code>Color</code></i>", dass das Objekt <code>color</code> durch die Klasse <code>Color</code> festgelegt und sie damit also der Bauplan für das Objekt ist.</p>
+                <p>In ihr steht also genau definiert, welche Eigenschaften und Fähigkeiten, also Attribute und Methoden ein Farb-Objekt haben sollte.</p>
+                <p>Jetzt aber mal zur richtigen Erklärung des Snippets:</p>
+                <p>Bisher sind wir nur darauf eingegangen, was eine Klasse eigentlich ist und wofür wir sie benötigen. Die Frage, wie wir denn nun ein Objekt nach dem Bauplan, den die Klasse vorgibt, erstellen ist allerdings immer noch offen.</p>
+                <p>Das magische Wort lautet hier <b>Konstruktor</b>.</p>
+                <p>Was ist nun aber ein Konstruktor?</p>
+                <p>Jede Klasse muss über eine Methode verfügen, die bei der Erzeugung eines Objekts der Klasse aufgerufen wird. In dieser Methode können dann Werte initialisiert und erste Anweisungen durchgeführt werden. Diese Methode heißt Konstruktor.</p>
+                <p>Er wird bei der Erstellung, also bei der Konstruktion eines Objekts aufgerufen.</p>
+                <p>Für ihn gibt es ein paar Sonderregeln, die immer gelten:</p>
+                <p>Die wichtigste davon ist dabei mit Sicherheit die folgende: Der Konstruktor muss immer in jeder Klasse ohne Ausnahme wie die Klasse benannt sein.</p>
+                <p>Gleichzeitig muss er immer als <code>public</code> definiert werden, da er ja von außerhalb eines Objektes aufgerufen wird.</p>
+                <p>Eine weitere Besonderheit ist, dass ein Konstruktor niemals einen Rückgabetyp hat, in seiner Definition also nie ein <code>void</code> oder ein Datentyp stehen darf.</p>
+                <p>Im Großen und Ganzen ist der Konstruktor aber eben auch nur eine Methode.</p>
+                <p>Das heißt für ihn gelten mit den paar zuvor genannten Einschränkungen, exakt dieselben Regel wir für jede andere beliebige Methode.</p>
+                <p>Also können wir auch einem Konstruktor bestimmte Parameter übergeben, mit denen wir dann etwas in ihm anstellen können.</p>
+            </div>
+
+            <div class="section">
                 <h2>Stufe 1</h2>
                 <p>Wir beginnen mit dem Erstellen des einfachsten geometrischen Objektes: Dem Punkt. Dabei soll ein jeder Punkt die folgenden Eigenschaften haben:</p>
-                <p>Eine <code>x</code> und <code>y</code> Koordinate und eine Darstellungsfarbe <code>color</code>.</p>
+                <p>Eine <code>x</code> und <code>y</code> Koordinate und eine Darstellungscolor <code>color</code>.</p>
             </div>
+
             <div class="section">
                 <h2>Testen_GPoint.java</h2>
                 <p>Eine neue Datei <code>Testen_GPoint.java</code> erstellen, dann den folgenden Quellcode einfach kopieren und einfügen und abschließend <code>Testen_GPoint.java</code> compilieren und ausführen.</p>
