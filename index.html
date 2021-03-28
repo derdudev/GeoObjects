@@ -166,8 +166,9 @@
                 <p>Versuche doch einfach mal eine Methode <code>mul()</code> für die Multiplikation zweier Ganzzahlen zu schreiben. Oder wie sieht es denn aus, wenn wir drei statt nur zwei Zahlen addieren wollen?</p>
                 <p>Probiere einfach ein bisschen herum, das fördert nur dein Verständnis!</p>
             </div>
+
             <div class="section">
-                <h2>Basics - Zurück zum Auto</h2>
+                <h2>Basics - Zurück zur Konstruktion des Autos</h2>
                 <p>Nun mit unserem neuen Wissen wollen wir das Beispiel von einem Auto Objekt einmal zuende führen.</p>
                 <p>Um einmal zu rekapitulieren:</p>
                 <ul>
@@ -179,6 +180,7 @@
                 <p>Nun, <code>color</code>, <code>model</code> müssen ja eigentlich nicht wirklich direkt von außen abrufbar sein. Eventuell wollen wir sie im Laufe des Programmes einmal auslesen oder sogar ändern, ein Auto kann ja auch neu lackiert werden und das können wir dann ja über den indirekten Zugriff über die Getter und Setter regeln.</p>
                 <p>Das heißt, dass wir <code>color</code> und <code>model</code> auf jeden Fall als <code>private</code> definieren werden.</p>
                 <p>Bleibt noch die Frage des Datentyps.</p>
+                <p>Der einfachere Fall zuerst: In <code>model</code> wollen wir ja einen Modelnamen speichern. Und aus was besteht ein Name? Genau, aus vielen aneinandergehängten Zeichen. Damit fällt unsere Wahl des Datentyps von <code>model</code> eindeutig auf <code>String</code>, da sich in einem <code>String</code> Zeichenketten speichern lassen.</p>
                 <p>In <code>color</code> soll ja eine Farbe gespeichert werden. Dies könnten wir zwar ganz einfach durch eine Zeichenkette, also einen <code>String</code> realisieren, indem wir z.B. einfach den hex-code einer Farbe als <code>String</code> in <code>color</code> speichern, jedoch ist das relativ unpraktisch.</p>
                 <p>Da kommt es uns nur gelegen, dass Java bereits eine eigene Klasse <code>Color</code> definiert hat, die es uns erlaubt simpel <code>Color</code> Objekte zu erstellen, in denen wir dann die Werte für R (Rot), G (Grün) und B (Blau) speichern können und uns zusätzlich noch einige andere sehr praktische Methoden zur Verfügung stehen.</p>
                 <p>Wichtig hierbei ist noch, dass wir, um diese Klasse in unserem Quellcode verwenden zu können, sie erst über den folgenden Befehl, den wir später ganz oben in die erste Zeile unseres Programms schreiben, importieren müssen.</p>
@@ -210,6 +212,32 @@
                 <p>Im Großen und Ganzen ist der Konstruktor aber eben auch nur eine Methode.</p>
                 <p>Das heißt für ihn gelten mit den paar zuvor genannten Einschränkungen, exakt dieselben Regel wir für jede andere beliebige Methode.</p>
                 <p>Also können wir auch einem Konstruktor bestimmte Parameter übergeben, mit denen wir dann etwas in ihm anstellen können.</p>
+                <p>So wollen wir ja schon bei der Erstellung eines Auto-Objektes unsere eigenen Farbe und den Modelnamen individuell festlegen lassen.</p>
+                <p>Mit diesem ganzen neuen Wissen ist es uns nun sogar schon möglich eine erste Version (bisher ohne weitere Methoden, als den Konstruktor) der Klasse <code>Auto</code> zu entwerfen.</p>
+                <p>Um es einmal davor noch kurz und knapp zusammenzufassen:</p>
+                <ul>
+                    <li>Die Klasse soll die zwei Attribute <code>color</code> und <code>model</code> besitzen, die beide als <code>private</code> definiert werden. Dabei hat <code>color</code> den Datentyp <code>Color</code> und <code>model</code> den bereits bekannten Datentyp <code>String</code>.</li>
+                    <li>Außerdem benötigt sie einen Konstruktor, der den gleichen Namen wie sie selbst hat - Also <code>Auto()</code> - und als <code>public</code> definiert ist. <br> Außerdem soll er die beiden Parameter <code>color</code> vom Typ <code>Color</code> und <code>model</code> vom Typ <code>String</code> entgegennehmen.</li>
+                </ul>
+                <p>Damit sieht unser erster Entwurf der <code>Auto</code> Klasse wie folgt aus:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Auto{
+        private Color color;
+        private String model; 
+
+        public Auto(Color color, String model){ }
+    }
+                    </code>
+                </pre>
+                <p>Hierbei sei noch zu beachten, dass die Attribute bei ihrer Deklaration nicht direkt mit einem Wert initialisiert werden, sondern dies in dem Konstruktor geschieht.</p>
+                <p>Eine Außnahme hierfür stellen konstante Attribute dar, da diese immer direkt in ihrer Deklaration initialisiert werden müssen. Anschließend kann ihr Wert jedoch auch an keinem Punkt in unserem Programm abgeändert werden.</p>
+                <p>Würden wir zum Beispiel davon ausgehen, dass die Räderanzahl eines Autos immer nur gleich 4 sein sollte, so könnten wir das folgende Attribut einfügen:</p>
+                <pre>
+                    <code class="JAVA">
+    private final int tires = 4;
+                    </code>
+                </pre>
             </div>
 
             <div class="section">
