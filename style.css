@@ -12,7 +12,7 @@
     width: 40%;
     margin: 40px;
 }
-.section, .basics{
+.section {
     margin-bottom: 100px;
 }
 .basics{
@@ -21,6 +21,8 @@
    color: #fff;
    display: flex;
    align-items: center;
+
+   margin-bottom: 50px;
 }
 .basics p{
     margin-bottom: 0px;
