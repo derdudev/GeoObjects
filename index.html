@@ -283,9 +283,9 @@
 
             <div class="section">
                 <h2>Basics - Der Bauplan formt sich immer mehr und mehr</h2>
-                <p>Unser erster Entwurf steht jetzt. Allerdings können wir bisher noch nichts kompilieren, ohne dass uns ein Fehler entgegengeworfen wird.</p>
-                <p>Um diesem Fehler auf den Grund zu gehen, provozieren wir ihn doch einfach mal herauf und überlegen dann, was noch fehlt.</p>
-                <p>Erstelle dafür, wenn du es bisher nicht sowieso von alleine weise vorausschauend gemacht hast, einen neuen Ordner und erstelle in diesem eine neue Datei für die Main-Klasse und eine weitere für die Auto-Klasse</p>
+                <p>Unser erster Entwurf steht jetzt. Wir können die Dateien zwar schon komplilieren, jedoch fehlt noch eine kleine Sache.</p>
+                <p>Setzen wir denn schon irgendwo die Werte der beiden Attribute?</p>
+                <p>Um herauszufinden, was hier fehlt, erstelle, wenn du es bisher nicht sowieso von alleine weise vorausschauend gemacht hast, einen neuen Ordner und erstelle in diesem eine neue Datei für die Main-Klasse und eine weitere für die Auto-Klasse</p>
                 <p>Ausgehend davon, dass der Ordner <i>AutoProject</i> heißt, sieht die Ordnerstruktur also wie folgt aus:</p>
                 <pre>
                     <code class="DIR">
@@ -301,6 +301,168 @@
     public class Main {
         public static void main(String[] args) {
             // Anweisungen
+        }
+    }
+                    </code>
+                </pre>
+                <p>In die <code>Auto</code> Klasse fügst du einfach den Entwurf aus dem letzten Abschnitt ein:</p>
+                <pre>
+                    <code class="JAVA">
+    import java.awt.Color;
+
+    public class Auto{
+        private Color color;
+        private String model; 
+
+        public Auto(Color color, String model){ }
+
+        public Color getColor(){
+            return color;
+        }
+        public void setColor(Color newColor){
+            color = newColor;
+        }
+
+        public String getModel(){
+            return model;
+        }
+        public void setModel(String newModel){
+            model = newModel;
+        }
+    }
+                    </code>
+                </pre>
+                <p>Hierbei darfst du jedoch nicht den Import der <code>Color</code> Klasse vergessen, sonst meckert der Compiler bereits beim Kompilieren.</p>
+            </div>
+
+            <div class="section">
+                <h2>Basics - Initialisierung im Konstruktor</h2>
+                <p>Wie ich im letzen Abschnitt bereits ein wenig vorweg genommen habe, weisen wir unseren beiden Attributen bisher noch nirgendwo Werte zu.</p>
+                <p>Das heißt sie zeigen bisher noch auf gar keine Referenz oder einen Wert, sondern lediglich <code>null</code>.</p>
+                <p>Aus dem Abschnitt Konstruktoren im Allgemeinen ist dir eventuell noch im Kopf geblieben, für was sie denn normalerweise verwendet werden. Nämlich für die Initialisierung von Attributen.</p>
+                <p>In unserem Fall wollen wir dafür ja dem Konstruktor zwei Werte übergeben, die er dann den beiden Attributen zuweist.</p>
+                <p>Also schreiben wir doch einfach mal den Code hierfür. Das sollte leicht getan sein, sollte der Konstruktor also so aussehen:</p>
+                <pre>
+                    <code class="JAVA">
+    public Auto(Color color, String model){ 
+        color = color;
+        model = model;
+    }
+                    </code>
+                </pre>
+                <p>Nun ja... </p>
+                <p>Das ist doch schon etwas sehr verwirrend.</p>
+                <p>Der Java-Compiler versteht zwar genau, was wir eigentlich meinen, wir selbst sind allerdings etwas verwirrt.</p>
+                <p>Um diese Verwirrung zu beseitigen, verwenden wir für solche Fälle einfach das <code>this</code> Schlüsselwort, um eindeutig zu zeigen, welche Variable woherkommt.</p>
+                <pre>
+                    <code class="JAVA">
+    public Auto(Color color, String model){ 
+        this.color = color;
+        this.model = model;
+    }
+                    </code>
+                </pre>
+                <p>So ist nun klar ersichtlich, dass der Teil des Ausdrucks links neben dem Gleichheitszeichen sich eindeutig auf das Attribut der Klasse bezieht und der rechte Teil die beiden Parameter meint.</p>
+            </div>
+
+            <div class="section">
+                <h2>Basics - Unser Auto soll fahren!</h2>
+                <p>Da unser Auto bisher noch nicht wirklich etwas kann und das ja doch echt ein bisschen langweilig wäre, fügen wir nun noch unsere zwei anfangs geplanten Methoden <code>fahren()</code> und <code>hupen()</code> ein.</p>
+                <p>Um mit diesen allerdings nicht den Rahmen zu sprengen, halten wir sie sehr simpel und geben in ihnen nur einen Hinweis in der Konsole aus, dass sie aufgerufen wurden.</p>
+                <p>Beide Methoden sollen dabei von außen aufgerufen werden können und nichts zurückgeben.</p>
+                <p>Damit lautet die Methoden-Definition wie folgt:</p>
+                <pre>
+                    <code class="JAVA">
+    public void fahren(){ 
+        System.out.println("Das Model " + this.model + " fährt");
+    }
+
+    public void hupen(){
+        System.out.println("Das Model " + this.model + " hupt");
+    }
+                    </code>
+                </pre>
+                <p>Hier verwenden wir, damit das Beispiel doch ein wenig interessanter wird, ein sehr praktisches Feature von Strings:</p>
+                <p>Diese lassen sich nämlich unter Verwendung des Pluszeichens (+) sehr einfach zusammenfügen.</p>
+                <p>In <code>model</code> ist ja der Modelname des Auto-Objekts als <code>String</code> gespeichert. Damit können wir ihn auch ganz einfach in einen Satz mit einfügen und uns diesen zusammengefügten Satz anschließend in der Konsole anschauen.</p>
+                <p>So sieht unsere fertige <code>Auto</code> Klasse nun vervollständigt wie folgt aus:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Auto{
+        private Color color;
+        private String model; 
+
+        public Auto(Color color, String model){ 
+            this.color = color;
+            this.model = model;
+        }
+
+        public void fahren(){ 
+            System.out.println("Das Model " + this.model + " fährt");
+        }
+    
+        public void hupen(){
+            System.out.println("Das Model " + this.model + " hupt");
+        }
+
+        public Color getColor(){
+            return color;
+        }
+        public void setColor(Color newColor){
+            color = newColor;
+        }
+
+        public String getModel(){
+            return model;
+        }
+        public void setModel(String newModel){
+            model = newModel;
+        }
+    }
+                    </code>
+                </pre>
+            </div>
+
+            <div class="section">
+                <h2>Basics - Das Auto fährt!</h2>
+                <p>Mit unserer fertigen <code>Auto</code> Klasse können wir nun also unser erstes richtiges Auto Objekt erstellen.</p>
+                <p>Dafür gehen wir nun in die <code>main()</code> Methode der <code>Main</code> Klasse und erstellen in dieser unser Objekt.</p>
+                <p>Wie bereits in dem Abschnitt über den Konstruktor im Allgemeinen gezeigt, rufen wir bei der Erstellung eines Objektes einer Klasse den Konstruktor über das Schlüsselwort <code>new</code> gefolgt von seinem Namen auf.</p>
+                <p>Allerdings benötigen wir ja zunächst erst noch zwei Werte, die wir ihm übergeben können - Die Farbe und den Modelnamen.</p>
+                <p>Hierfür müssen wir nun zuerst in die erste Zeile in der <code>Main.java</code> Datei ebenfalls die Klasse <code>Color</code> importieren, da wir ja dem Konstruktor ein Objekt des Typs <code>Color</code> übergeben müssen.</p>
+                <p>Dann initialisieren wir einfach zwei Variablen in der <code>main()</code> Methode, <code>farbe</code> vom Typ <code>Color</code> und <code>modelName</code> vom Typ <code>String</code>.</p>
+                <p>Diesen können wir dann jeweils einen beliebigen Wert zuweisen. Für <code>modelName</code> suchen wir uns einfach einen Auto-Modelnamen, während <code>farbe</code> ja ein Objekt ist, weshalb wir hier den Konstruktor von <code>Color</code> aufrufen und ihm drei Werte für R, G und B übergeben müssen.</p>
+                <p>Diese beiden Variablen übergeben wir dann einfach dem <code>Auto</code> Konstruktor.</p>
+                <p>Um anschließend zu überprüfen, ob unser Auto-Objekt auch das tut, was es soll, können wir nun noch über das erstellte Objekt <code>auto1</code> die beiden Methoden <code>fahren()</code> und <code>hupen()</code> aufrufen.</p>
+                <pre>
+                    <code class="JAVA">
+    import java.awt.Color; 
+
+    public class Main {
+        public static void main(String[] args) {
+            Color farbe = new Color(0, 0, 0); // schwarz
+            String modelName = "AMG";
+            
+            Auto auto1 = new Auto(farbe, modelName);
+            auto1.fahren();
+            auto1.hupen();
+        }
+    }
+                    </code>
+                </pre>
+                <p>Durch dieses Snippet sollte auch gleich klar werden, wie man Methoden, die als <code>public</code> definiert sind über ein Objekt aufrufen kann.</p>
+                <p>Probiere doch einfach mal dir nur den Modelnamen des Autos auf der Konsole ausgeben zu lassen oder ein zweies Auto-Objekt <code>auto2</code> zu erstellen, welches dann allerdings eine andere Frabe und einen anderen Modelnamen haben soll. Rufe dann auch hier die beiden Methoden auf und schau, was auf der Konsole ausgegeben wird.</p>
+                <p>Abschließend sei noch gesagt, dass es auch kürzer als in dem Beispiel oben geht, da wir die beiden Variablen <code>farbe</code> und <code>modelName</code> eigentlich nicht benötigen, sondern deren Werte direkt dem Konstruktor übergeben können.</p>
+                <p>Damit lässt sich das Programm ein wenig abkürzen:</p>
+                <pre>
+                    <code class="JAVA">
+    import java.awt.Color; 
+
+    public class Main {
+        public static void main(String[] args) {
+            Auto auto1 = new Auto(new Color(0, 0, 0), "AMG");
+            auto1.fahren();
+            auto1.hupen();
         }
     }
                     </code>
