@@ -12,8 +12,29 @@
     width: 40%;
     margin: 40px;
 }
-.section{
+.section, .basics{
     margin-bottom: 100px;
+}
+.basics{
+   padding: 20px; 
+   background: #f53e38;
+   color: #fff;
+   display: flex;
+   align-items: center;
+}
+.basics p{
+    margin-bottom: 0px;
+}
+.basics a{
+    color: #fff;
+}
+.icon{
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 10px;
+    opacity: 0.7;
 }
 h2{
     margin-bottom: 20px;
