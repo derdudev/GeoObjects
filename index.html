@@ -116,9 +116,8 @@
                 <pre>
                     <code class="JAVA">
     public class Main {
-        public static void main(String[] args){
-            int summe = sum(2, 3);
-            System.out.println(summe);
+        public static void main(String[] args) {
+            // Anweisungen
         }
     }
                     </code>
@@ -227,10 +226,24 @@
         private String model; 
 
         public Auto(Color color, String model){ }
+
+        public Color getColor(){
+            return this.color;
+        }
+        public void setColor(Color newColor){
+            this.color = newColor;
+        }
+
+        public String getModel(){
+            return this.model;
+        }
+        public void setModel(String newModel){
+            this.model = newModel;
+        }
     }
                     </code>
                 </pre>
-                <p>Hierbei sei noch zu beachten, dass die Attribute bei ihrer Deklaration nicht direkt mit einem Wert initialisiert werden, sondern dies in dem Konstruktor geschieht.</p>
+                <p>Hierbei sei noch zu beachten, dass die Attribute bei ihrer Deklaration nicht direkt mit einem Wert initialisiert werden, sondern dies in dem Konstruktor geschehen soll.</p>
                 <p>Eine Außnahme hierfür stellen konstante Attribute dar, da diese immer direkt in ihrer Deklaration initialisiert werden müssen. Anschließend kann ihr Wert jedoch auch an keinem Punkt in unserem Programm abgeändert werden.</p>
                 <p>Würden wir zum Beispiel davon ausgehen, dass die Räderanzahl eines Autos immer nur gleich 4 sein sollte, so könnten wir das folgende Attribut einfügen (Das kannst du auch gerne tun 😄. Für den weiteren Verlauf dieses Turtorials ist dies allerdings irrelevalt):</p>
                 <pre>
@@ -238,10 +251,60 @@
     private final int tires = 4;
                     </code>
                 </pre>
+                <p>Zuletzt noch ein paar Worte zu den Gettern und Settern der beiden privaten Attribute:</p>
+                <p>In diesen Methoden ist dir wahrscheinlich schon das Schlüsselwort <code>this</code> aufgefallen. In diesen Fällen ist es zwar nicht notwendig, später werden wir allerdings noch sehen, warum wir es verwenden sollten.</p>
+                <p>Unter <code>this</code> kannst du eine Art Referenz auf das eigene Objekt verstehen. Ein Ausdruck wie <code>this.color</code> bezieht sich also immer direkt auf das Objekt, bzw. genau das Attribut dieses Objektes, aus dem es aufgerufen wird.</p>
+                <p>Die folgende Version des Quellcodes wäre damit auch vollkommen korrekt, wenn auch nicht gleich leicht verständlich:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Auto{
+        private Color color;
+        private String model; 
+
+        public Auto(Color color, String model){ }
+
+        public Color getColor(){
+            return color;
+        }
+        public void setColor(Color newColor){
+            color = newColor;
+        }
+
+        public String getModel(){
+            return model;
+        }
+        public void setModel(String newModel){
+            model = newModel;
+        }
+    }
+                    </code>
+                </pre>
             </div>
 
             <div class="section">
                 <h2>Basics - Der Bauplan formt sich immer mehr und mehr</h2>
+                <p>Unser erster Entwurf steht jetzt. Allerdings können wir bisher noch nichts kompilieren, ohne dass uns ein Fehler entgegengeworfen wird.</p>
+                <p>Um diesem Fehler auf den Grund zu gehen, provozieren wir ihn doch einfach mal herauf und überlegen dann, was noch fehlt.</p>
+                <p>Erstelle dafür, wenn du es bisher nicht sowieso von alleine weise vorausschauend gemacht hast, einen neuen Ordner und erstelle in diesem eine neue Datei für die Main-Klasse und eine weitere für die Auto-Klasse</p>
+                <p>Ausgehend davon, dass der Ordner <i>AutoProject</i> heißt, sieht die Ordnerstruktur also wie folgt aus:</p>
+                <pre>
+                    <code class="DIR">
+    AutoProjekt
+        > Main.java
+        > Auto.java
+                    </code>
+                </pre>
+                <p>Den Basis-Code für eine die "Start"-Klasse, in der sich die <code>main()</code> Methode befindet, können wir hierbei einfach aus den Beispielen von zuvor kopieren und in <code>Main.java</code> einfügen.</p>
+                <p>Damit steht in <code>Main.java</code>:</p>
+                <pre>
+                    <code class="JAVA">
+    public class Main {
+        public static void main(String[] args) {
+            // Anweisungen
+        }
+    }
+                    </code>
+                </pre>
             </div>
 
             <div class="section">
