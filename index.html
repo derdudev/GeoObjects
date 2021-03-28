@@ -275,7 +275,7 @@
                     Gleichzeitig gibt es keine Möglichkeit, in einer solchen <code>ArrayList</code> mehrere Objekte von verschiedenen Typen, also mehrere Instanzen verschiedener Klassen zu speichern.
                 </p>
                 <p>
-                    Somit brauchen wir eine Art gemeinsame "Oberklasse" für <code>GPoint</code> und <code>GLine</code>. Beide Klassen beschreiben ja GeoObjekte, also bietet sich für den Namen der übergeordneten Oberklasse <code>GeoObjects</code> prima an.
+                    Somit brauchen wir eine Art gemeinsame "Oberklasse" für <code>GPoint</code> und <code>GLine</code>. Beide Klassen beschreiben ja GeoObjekte, also bietet sich für den Namen der übergeordneten Oberklasse <code>GeoObject</code> prima an.
                 </p>
                 <p>
                     Diese Klasse soll nun alle Eigenschaften (also Attribute) und Methoden beinhalten, die im oberen UML Diagramm sowohl in <code>GPoint</code> und <code>GLine</code> vorhanden sind.
@@ -284,8 +284,81 @@
                     Alle anderen Eigenschaften, in denen sich die beiden Klassen unterscheiden, bleiben damit in ihnen selbst. Damit sind <code>GPoint</code> und <code>GLine</code> jeweils Spezialisierungen von <code>GeoObject</code>.
                 </p>
                 <p>
-
+                    Jedoch gleichen sich <code>GPoint</code> und <code>GLine</code> nicht zu 100%. Damit müssen sie sich voneinander und vor allem von der Oberklasse unterscheiden. Die Eigenschaften, die sie spezialisieren werden also jeweils in (und nur in) <code>GPoint</code> und <code>GLine</code> definiert.
                 </p>
+                <p>
+                    Damit sind die beiden Klassen <code>GPoint</code> und <code>GLine</code> Spezialisierungen von <code>GeoObject</code>. Sie sollen alle Eigenschaften und Fähigkeiten (Also Attribute und Methoden) von <code>GeoObject</code> besitzen und darüber hinaus noch eigene Eigenschaften ergänzen.
+                </p>
+                <p>
+                    Wenn eine Unterklasse die Eigenschaften einer Oberklasse haben soll, spricht man von Vererbung.
+                </p>
+                <p>
+                    Um diese Vererbung in Code auszudrücken, verwenden wir das <code>extends</code> Schlüsselwort in der Klassendefinition.
+                </p>
+                <p>Damit würde die neue Klassendefinition von <code>GPoint</code> nun wie folgt aussehen:</p>
+                <pre>
+                    <code class="JAVA">
+    public class GPoint extends GeoObject { ... }
+                    </code>
+                </pre>
+                <p>Möchte man sich unbedingt durch die Hölle des Java-Editors schlagen, so ist es möglich einen solchen Ausdruck auch automatisch zu erzeugen, indem man im UML-Klassen-Editor auf der Registerkarte <i>Klasse</i> im Feld <i>Abgeleitet von</i> die Klasse, von der geerbt werden soll, eingeträgt - In unserem Fall also für <code>GPoint</code> und <code>GLine</code> jeweils <code>GeoObject</code>.</p>
+                <div class="center">
+                    <img src="./assets/pic1.png" style="width: 500px;">
+                </div>
+                <p>Andererseits (was durchaus um einiges empfehlenswerter ist), lässt sich natürlich der Quellcode auch direkt bearbeiten und die Klassendefinitionen von <code>GPoint</code> und <code>GLine</code> durch <code>extends GeoObject</code> wie in dem oberen Code-Snippet gezeigt, ergänzen.</p>
+                <p>Befindest du dich noch in der UML-Ansicht, dann mache einfach einen Rechtsklick auf die entsprechende Klasse und klicke dann <i>Quelltext öffnen</i>.</p>
+                <p>Wenn du nun den Code richtig über eine der beiden zueben genannten Methoden ergänzt hast und anschließend zur UML-Ansicht zurückkehrst, sollte diese nun in etwa so aussehen (WICHTIG: Du kannst diesen Schritt erst durchführen, wenn du die Klasse <code>GeoObject</code> bereits geschrieben hast, was aufgrund der dämlichen Struktur dieses ABs leider noch nicht passiert sein kann):</p>
+                <div class="center">
+                    <img src="./assets/pic2.png" alt="" srcset="">
+                </div>
+                <p>Hier führt nun jeweils ein fetter Pfeil von jeder abgeleiteten Unterklasse, die von <code>GeoObject</code> erbt zu <code>GeoObject</code>, der das Vererbungs-Verhältnis ausdrückt.</p>
+                <p>So kann man diese Pfeile als <i>... ist ein ...</i> lesen. Für uns also:</p>
+                <ul>
+                    <li>Ein <code>GPoint</code> Objekt ist ein <code>GeoObject</code> ...</li>
+                    <li>Ein <code>GLine</code> Objekt ist ein <code>GeoObject</code> ...</li>
+                </ul>
+                <p>... das heißt, dass sie jeweils über alle Attribute und Methoden von GeoObject verfügen, diese allerdings noch durch ihre eigenen speziellen Attribute und Methoden ergänzen.</p>
+                <p>Nun werfen wir noch einen genaueren Blick auf die <code>GeoObject</code> Klasse im UML-Diagramm:</p>
+                <div class="center">
+                    <img src="./assets/pic3.png" style="width: 400px;">
+                </div>
+                <p>Hierbei fällt vor allem eine Sache auf: "GeoObject", also der Klassenname und die <code>draw()</code> Methode sind beide kursiv geschrieben. Was bedeutet das?</p>
+                <p>Um das zu verstehen, müssen wir uns nun erst einmal überlegen, was die <code>draw()</code> Methode eigentlich ist.</p>
+                <p>In ihr stehen jeweils die Anweisungen, die einen Punkt, bzw. eine Strecke auf das Board zeichnen.</p>
+                <p>Damit implementieren <code>GPoint</code> und <code>GLine</code> diese Methode auf zwei grundlegend verschiedene Arten. Ein Punkt muss ja offensichtlich anders gezeichnet werden, als eine Strecke.</p>
+                <p>Gleichzeitig soll aber auch jede Klasse, die von <code>GeoObject</code> eine Art von <code>draw()</code> Methode implementieren, da wir diese ja später in <code>Board</code> zum eigentlichen Zeichnen des Objektes aufrufen müssen.</p>
+                <p>Weiter hängt die genaue Implementierung dieser Methode in einer erbenden Klasse in jedem Fall von dem jeweiligen Objekt ab, das gezeichnet werden soll.</p>
+                <p>Deshalb ist es auch nicht wirklich sinnvoll eine Art "Standart-Implementierung" direkt in <code>GeoObject</code> vorzunehmen und diese dann später in den erbenden Klassen zu überschreiben (Falls dir das Überschreiben von Methoden noch kein Begriff ist, melde dich gerne bei mir 😄. Eventuell ist zu diesem Zeitpunkt dann auch schon eine detaillierte Erklärung auf dieser Website verfügbar).</p>
+                <p>Die Implementierung ist sowieso in allen von <code>GeoObject</code> erbenden Klassen verschieden.</p>
+                <p>Deshalb legen wir in <code>GeoObject</code> lediglich fest, dass eine von ihr erbende Klasse eine <code>draw()</code> Methode implementieren muss, die <code>public</code> sein soll, den Rückgabetyp <code>void</code> hat und als einzigen Parameter <code>gr</code> vom Typ <code>Graphics</code> entgegennimmt.</p>
+                <p>Wie genau die <code>draw()</code> dann sonst noch aussieht, d.h. wie genau das Objekt dann gezeichnet wird, wird den jeweiligen erbenden Klassen überlassen.</p>
+                <p>Um diese spezielle Eigenschaft der <code>draw()</code> Methode in Code auszudrücken, müssen wir sie als <code>abstract</code> definieren.</p>
+                <p>Eine als <code>abstract</code> definierte Methode hat in der Klasse, in der sie definiert wird (also im Fall von <code>draw()</code> die Klasse <code>GeoObject</code>) <i>keinen</i> Methodenrumpf, womit statt einem geschweiften Klammerpaar der Methodendefinition nur noch ein Semikolon folgt:</p>
+                <pre>
+                    <code class="JAVA">
+    public abstract void draw(Graphics gr);
+                    </code>
+                </pre>
+                <p>Sobald eine Methode einer Klasse als <code>abstract</code> definiert wurde, muss diese Klasse ebenfalls als <code>abstract</code> definiert werden, da nun keine Instanz (kein Objekt) dieser Klasse mehr erstellt werden kann. Es fehlt ja eine vollständige Definition der abstrakten Methode.</code></p>
+                <p>Zusammengefasst gilt für die <code>GeoObject</code> Klasse also folgendes:</p>
+                <p>Sie besitzt...</p>
+                <ul>
+                    <li>ein Attribut <code>color</code>, das als <code>private</code> definiert wird</li>
+                    <li>einen Konstruktor <code>GeoObject()</code>, der keinen Parameter entgegennimmt. In ihm wird das Attribut <code>color</code> intialisiert. </li>
+                    <li>einen Getter <code>getColor()</code> und Setter <code>setColor(Color colorNew)</code> für <code>color</code></li>
+                    <li>eine abstrakte Methode <code>draw(Graphics gr)</code>, die den Rückgabetyp <code>void</code> besitzt, als <code>public</code> definiert wird und einen Parameter <code>gr</code> vom Typ <code>Graphics</code> entgegenimmt.</li>
+                </ul>
+                <p>Damit haben wir nun alle Information, die wir benötigen, um die <code>GeoObject</code> Klasse zu implementieren.</p>
+                <p>Auch hier gibt es wieder zwei Möglichkeiten, die Eigenschaft <code>abstract</code> festzulegen.</p>
+                <p>Für alle, die den ungemütlichen Java-Editor, bzw dessen UML-Editor verwenden wollen (und sich damit durch diesen ganzen Prozess begleitet von unzähligen Fehlermeldungen quälen werden): </p>
+                <p>Im UML-Diagramm: Rechtsklick > Neue Klasse. In dem Fenster anschließend <i>GeoObject</i> als Klassenname angeben und <i>Speichern</i> klicken. In dem nun neugeöffneten Fenster unter der Registerkarte <i>Klasse</i> ein Häkchen bei <i>abstrakt</i> setzen.</p>
+                <p>Anschließend das Attribut <code>color</code> (Wobei der Getter und Setter automatisch erstellt werden können) und die abstrakte Methode <code>draw(Graphics gr)</code> hinzufügen.</p>
+                <p>Die Optionen für die beiden abstrakten "Neuheiten":</p>
+                <div class="center">
+                    <img src="./assets/pic4.png" style="width: 400px;">
+                    <img src="./assets/pic5.png" style="width: 400px;">
+                </div>
+                <p>Alternativ kannst du natürlich auch diese ganzen Dinge im rohen Quellcode einfügen.</p>
             </div>
         </div>
     </div>
