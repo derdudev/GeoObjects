@@ -90,17 +90,18 @@ pre > code[class]::before {
     padding: 20px;
     padding-bottom: 5px;
     border: solid 2px #6c5f7c;
-    box-shadow: -4px 4px 0 #6c5f7c;
+    box-shadow: -4px 4px 0 #6c5f7c50;
 }
 .tipp{
     margin-top: 40px;
     padding: 20px;
     padding-bottom: 5px;
     border: solid 2px #5ca274;
-    box-shadow: -4px 4px 0 #5ca274;
+    box-shadow: -4px 4px 0 #5ca27450;
 }
-.tipp p, .tipp p i{
+.tipp p, .tipp p i, .tipp ul li{
     font-family: monospace;
+    font-size: 15px;
 }
 img{
     width: 120%;

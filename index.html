@@ -369,6 +369,44 @@
     }
                     </code>
                 </pre>
+                <p>Beachten solltest du hierbei noch, dass du nun natürlich auch alle überflüssigen Attribute in den erbenden Klassen entfernen solltest, da diese ja nun schon in <code>GeoObject</code> definiert sind. In unserem Fall betrifft das genau ein Attribut, nämlich <code>color</code>.</p>
+                <div class="exercise">
+                    <p>Stelle eine neue Kopie deines Projektes in einem neuen Verzeichnis <code>GeomObj_F</code> her. Bevor du <code>GeoObj.uml</code> wieder öffnest, schließe erst einmal alle Dateien im JavaEditor.</p>
+                    <p>Erstelle gemäß den Beschreibungen des Textes dieses Kapitels eine neue abstrakte Klasse <code>GeoObject</code>.</p>
+                    <p>Noch einmal der Hinweis, dass du unbedingt darauf achten solltest, die Klasse <code>Color</code> überall dort, wo sie verwendet wird (also auch in <code>GeoObject</code>) auch zu importieren. </p>
+                    <p>Der Konstruktor von <code>GeoObject</code> hat sogar auch schon etwas zu tun: Er soll das Attribut <code>color</code> initialisieren. Dafür kannst du dir prinzipiell eine beliebige Farbe aussuchen, jedoch empfiehlt sich natürlich der Einfachheit halber Schwarz.</p>
+                    <p>Bearbeite dann wie bereits beschrieben die schon vorhandene Klasse <code>GPoint</code>, indem du alle nicht mehr benötigten Deklarationen entfernen und die Klasse von <code>GeoObject</code> erben lassen.</p>
+                    <p>Hierbei gibt es noch eine Besonderheit zu beachten:</p>
+                    <p>Der Konstruktor von jeder von <code>GeoObject</code> erbenden Klasse muss als erste Anweisung <code>super()</code> beinhalten. Dieses <code>super()</code> ruft den Konstruktor der Superklasse, also der Elternklasse <code>GeoObject</code> auf, was ja durchaus nötig ist, um <code>color</code> zu initialisieren.</p>
+                    <p>Teste nun, ob dein Programm immer noch so funktioniert wie vor den Änderungen!</p>
+                </div>
+                <div class="exercise">
+                    <p>Erstelle eine weitere neue Klasse <code>GLine</code>, die dem oben angegebenen UML-Diagramm entspricht.</p>
+                    <p>Wenn du hier nicht ganz weiterkommst, werf einfach einen Blick auf den folgenden grün markierten Tipp-Block.</p>
+                    <p>Auch hier solltest du nicht vergessen als erste Anweisung im Konstruktor <code>super()</code> aufzurufen (wie bei <code>GPoint</code>).</p>
+                    <p>Implementiere abschließend die <code>draw(Graphics gr)</code> Methode, indem du in ihrem Inneren die Anweisung zum Zeichnen einer Linie einfügst.</p>
+                    <p>Das als Parameter übergebene Objekt <code>gr</code> enthält eine Methode <code>drawLine()</code>. Schau dir um zu verstehen, was man ihr alles übergeben muss, einmal den folgenden Screenshot aus der Dokumentation der Klasse <code>Graphics</code> an oder gehe selbst auf die <a href="https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html#drawLine(int,%20int,%20int,%20int)">Website von Oracle</a>:</p>
+                    <div class="center">
+                        <img src="./assets/pic6.png" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="tipp">
+                    <p>Attribute und Methoden von <code>GLine</code>:</p>
+                    <ul>
+                        <li><code>point1</code> und <code>point2</code> vom Typ <code>GPoint</code>, jeweils als <code>private</code> deklariert.</li>
+                        <li><code>GLine(GPoint point1, GPoint point2)</code> als Konstruktor, der zwei Parameter jeweils des Typs <code>GPoint</code> entgegennimmt.</li>
+                        <li>eine überschriebene <code>draw()</code> Methode, deren Signatur bereits im zuvorigen Text erklärt wurde.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Stufe 7 - Der letzte Act: Strecken verwenden</h2>
+                <p>Nun wollen wir ja unsere neu implementierte <code>GLine</code> Klasse auch in Aktion erleben.</p>
+                <p>Damit wir nun aber überhaupt erst <code>GLine</code> Objekte in <code>geoObjects</code> hinzufügen können, müssen wir noch einige Dinge ändern:</p>
+                <p></p>
+            </div>
+            <div class="section">
+                <h2>Polymorphie</h2>
                 <p>Zuletzt möchte ich in diesem Abschnitt noch auf eine weitere Besonderheit, die sich aus der <code>Board.paint()</code> Methode erkennen lässt, eingehen.</p>
                 <p>Wenn wir hierbei kurz einen Blick auf diese werfen, fällt uns etwas auf (Die ersten 4 Zeilen der Methode sind für uns erst einmal irrelevant):</p>
                 <pre>
@@ -379,12 +417,17 @@
                 BasicStroke.JOIN_MITER);
         ((Graphics2D) g).setStroke(stroke2);
 
-        for (GeoObject p : geoObjects ) {
-            p.draw(g);
-        } // end of for
+        for (GeoObject go : geoObjects ) {
+            go.draw(g);
+        }
     }
                     </code>
                 </pre>
+                <p>Mithilfe der for-Schleife iterieren wir über die <code>ArrayList</code> <code>geoObjects</code>. Wie bereits erklärt, nimmt die Laufvariable <code>go</code>, die vom Typ <code>GeoObject</code> sein muss, da in <code>geoObjects</code> ja sowohl <code>GPoint</code> als auch <code>GLine</code> oder andere GeoObjekte gespeichert werden können, in jedem Schleifendurchlauf den Wert des momentanen Elements in dieser <code>ArrayList</code> an.</p>
+                <p>Das Objekt <code>go</code> kann somit sowohl ein <code>GPoint</code>, als auch ein <code>GLine</code> oder anderes von <code>GeoObject</code> erbendes Objekt sein.</p>
+                <p>Das heißt, dass die <code>draw()</code> Methode jeweils aus einem anderen "Kontext" aufgerufen werden kann. In unserem Fall sind das bisher die Methoden: <code>GPoint.draw()</code> und <code>GLine.draw()</code>.</p>
+                <p>Da sich die Implementierung der beiden genannten <code>draw()</code> Methoden unterscheidet, da beide Klassen ja ihre eigene Version von <code>draw()</code> implementieren, spricht man hier von <b>Polymorphie</b>.</p>
+                <p>Polymorphie meint einfach nur, dass sich hinter einem Ausdruck (hier: <code>go.draw()</code>) verschiedene Methoden-Implementierungen verbergen können, weil jedes von <code>GeoObject</code> erbende Objekt die Methode <code>draw()</code> überschreiben und damit seine eigene Version implementieren muss.</p>
             </div>
         </div>
     </div>
