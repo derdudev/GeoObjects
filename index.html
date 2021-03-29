@@ -401,9 +401,44 @@
             </div>
             <div class="section">
                 <h2>Stufe 7 - Der letzte Act: Strecken verwenden</h2>
+                <h3>Strecken Objekte erzeugen</h3>
                 <p>Nun wollen wir ja unsere neu implementierte <code>GLine</code> Klasse auch in Aktion erleben.</p>
                 <p>Damit wir nun aber überhaupt erst <code>GLine</code> Objekte in <code>geoObjects</code> hinzufügen können, müssen wir noch einige Dinge ändern:</p>
-                <p></p>
+                <p>Zunächst müssen wir den Typ von <code>geoObjects</code> ein wenig anpassen: Diese Liste soll ja nicht mehr nur <code>GPoint</code> Objekte beinhalten (Was durch <code>ArrayList&lt;GPoint&gt;</code> bisher noch ausgedrückt wird), sondern alle Objekte, die von <code>GeoObject</code> erben.</p>
+                <p>Ändere hierfür einfach <code>ArrayList&lt;GPoint&gt;</code> um zu <code>ArrayList&lt;GeoObject&gt;</code> und ab sofort kannst du auch <code>GLine</code> Objekte in <code>geoObjects</code> speichern.</p>
+                <p>Um nun unsere <code>GLine</code> Klasse zu testen, wollen wir im Konstruktor von <code>Board</code> gleich ein neues <code>GLine</code> Objekt erzeugen.</p>
+                <p>Der Konstruktor von <code>GLine</code> erwartet zwei <code>GPoint</code> Objekte. Da wir im Konstruktor von <code>Board</code> ja bereits mehrere solcher Objekte erzeugt haben (Bzw. eigentlich ja nur genau eins, dieses dann aber immer wieder neu initialisiert und dann in <code>geoObjects</code> eingefügt), können wir einfach diese verwenden.</p>
+                <p>Wie aber schon angedeutet, müssen wir zuvor den Quellcode zum Erzeugen der Punkte so abändern, dass wir nicht immer einen einzigen Punkt neu initialisieren, sondern vier <code>GPoint</code> Objekte <code>p1</code>, <code>p2</code>, <code>p3</code> und <code>p4</code>.</p>
+                <p>Dann kannst du dem Konstruktor von <code>GLine</code> ganz einfach zwei dieser vier <code>GPoint</code> Objekte übergeben und schon haben wir ein <code>GLine</code> Objekt.</p>
+                <p>Jedoch muss auch dieses Objekt dann natürlich noch in die <code>geoObjects</code> Liste hinzugefügt werden.</p>
+                
+                <h3>Strecken Objekte zeichnen</h3>
+                <p>Damit die neuen <code>GLine</code> Objekte auch alle richtig gezeichnet werden, müssen wir nun noch die For-Schleife in der <code>Board.paint()</code> Methode anpassen, in welcher ja jeweils die <code>draw()</code> Methode der Objekte, die in <code>geoObjects</code> gespeichert sind, aufgerufen wird.</p>
+                <p>Die Laufvariable muss nun also abgeändert werden, da jetzt ja nicht mehr nur <code>GPoint</code> Objekte in <code>geoObjects</code> enthalten sind, sondern Objekte vom Typ <code>GeoObjects</code>.</p>
+                <p>Dafür müssen wir also den Datentypen der Laufvariablen von <code>GPoint</code> zu <code>GeoObject</code> ändern. Da diese Variable dann ja immer ein <code>GeoObject</code> und nicht nur einen <code>GPoint</code> beinhaltet, benennen wir sie auch gleich von <code>p</code> (was ja für Point stand) zu <code>go</code> (für GeoObject) um.</p>
+                <p>Damit wird ...</p>
+                <pre>
+                    <code class="JAVA">
+    for(GPoint p: geoObjects){
+        p.draw(gr);
+    }
+                    </code>
+                </pre>
+                <p>... zu ...</p>
+                <pre>
+                    <code class="JAVA">
+    for(GeoObject go: geoObjects){
+        go.draw(gr);
+    }
+                    </code>
+                </pre>
+
+                <h3>Weiter Punkte in <code>mousePressed()</code> hinzufügen</h3>
+                <p>In <code>mousePressed()</code> wird nach einem Punkt in der <code>geoObjects</code> Liste gesucht, der sich dicht an der Maus befindet.</p>
+                <p>Hierfür läuft eine for-Schleife über alle Einträge der Liste. Jedoch haben wir hier nun das gleiche Problem, wie bereits in der for-Schleife in der <code>Board.paint()</code> Methode. In <code>geoObjects</code> sind ja nicht mehr nur <code>GPoint</code> Objekte enthalten, sondern <code>GeoObject</code> Objekte im Allgemeinen.</p>
+                <p>Damit müssen wir auch hier die Laufvariable von <code>GPoint p</code> zu <code>GeoObject go</code> abändern.</p>
+                <p>Nun gibt es ja aber auch die Möglichkeit, dass das <code>go</code> Objekt gar kein <code>GPoint</code> Objekt mehr ist und wir damit die Distanzüberprüfung nicht mehr auf jedem Objekt in der <code>geoObjects</code> Liste aufrufen können, da <code>GLine</code> die Methode <code>abstandZu()</code> ja gar nicht erst implementiert.</p>
+                <p>Also darf der Schleifenrumpf nur dann ausgeführt werden, wenn das aktuelle Listenobjekt, was ja in der Laufvariable <code>go</code> gespeichert ist, wirklich vom Typ <code>GPoint</code> ist.</p>
             </div>
             <div class="section">
                 <h2>Polymorphie</h2>

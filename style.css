@@ -41,11 +41,9 @@
 h2{
     margin-bottom: 20px;
 }
-h2::before{
-    background-color: #b44437;
-    height: 10px;
-    width: 200px;
-    content: "";
+h3{
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 p, li{
     line-height: 26.5px;
