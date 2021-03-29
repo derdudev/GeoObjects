@@ -303,7 +303,7 @@
                 </pre>
                 <p>Möchte man sich unbedingt durch die Hölle des Java-Editors schlagen, so ist es möglich einen solchen Ausdruck auch automatisch zu erzeugen, indem man im UML-Klassen-Editor auf der Registerkarte <i>Klasse</i> im Feld <i>Abgeleitet von</i> die Klasse, von der geerbt werden soll, eingeträgt - In unserem Fall also für <code>GPoint</code> und <code>GLine</code> jeweils <code>GeoObject</code>.</p>
                 <div class="center">
-                    <img src="./assets/pic1.png" style="width: 500px;">
+                    <img src="./assets/pic1.png" style="width: 60%;">
                 </div>
                 <p>Andererseits (was durchaus um einiges empfehlenswerter ist), lässt sich natürlich der Quellcode auch direkt bearbeiten und die Klassendefinitionen von <code>GPoint</code> und <code>GLine</code> durch <code>extends GeoObject</code> wie in dem oberen Code-Snippet gezeigt, ergänzen.</p>
                 <p>Befindest du dich noch in der UML-Ansicht, dann mache einfach einen Rechtsklick auf die entsprechende Klasse und klicke dann <i>Quelltext öffnen</i>.</p>
@@ -318,9 +318,10 @@
                     <li>Ein <code>GLine</code> Objekt ist ein <code>GeoObject</code> ...</li>
                 </ul>
                 <p>... das heißt, dass sie jeweils über alle Attribute und Methoden von GeoObject verfügen, diese allerdings noch durch ihre eigenen speziellen Attribute und Methoden ergänzen.</p>
+                <p>Anmerkung eine Erklärung der Bedeutung der einzelnen Pfeile und deren Bezeichnung findest du in der <a href="/uml.html">Einführung zu UML</a>.</p>
                 <p>Nun werfen wir noch einen genaueren Blick auf die <code>GeoObject</code> Klasse im UML-Diagramm:</p>
                 <div class="center">
-                    <img src="./assets/pic3.png" style="width: 400px;">
+                    <img src="./assets/pic3.png" style="width: 52%;">
                 </div>
                 <p>Hierbei fällt vor allem eine Sache auf: "GeoObject", also der Klassenname und die <code>draw()</code> Methode sind beide kursiv geschrieben. Was bedeutet das?</p>
                 <p>Um das zu verstehen, müssen wir uns nun erst einmal überlegen, was die <code>draw()</code> Methode eigentlich ist.</p>
@@ -355,10 +356,35 @@
                 <p>Anschließend das Attribut <code>color</code> (Wobei der Getter und Setter automatisch erstellt werden können) und die abstrakte Methode <code>draw(Graphics gr)</code> hinzufügen.</p>
                 <p>Die Optionen für die beiden abstrakten "Neuheiten":</p>
                 <div class="center">
-                    <img src="./assets/pic4.png" style="width: 400px;">
-                    <img src="./assets/pic5.png" style="width: 400px;">
+                    <img src="./assets/pic4.png" style="width: 52%;">
+                    <img src="./assets/pic5.png" style="width: 52%;">
                 </div>
                 <p>Alternativ kannst du natürlich auch diese ganzen Dinge im rohen Quellcode einfügen.</p>
+                <p>Dazu einfach die beiden Klassendefinitionen von <code>GPoint</code> und <code>GLine</code> durch ein <code>extends GeoObject</code> ergänzen. Und die folgende Methode einfügen, bzw. ein <code>@Override</code> über der alten <code>draw()</code> Methode hinzufügen:</p>
+                <pre>
+                    <code class="JAVA">
+    @Override
+    public void draw(Graphics gr){
+        // Anweisungen
+    }
+                    </code>
+                </pre>
+                <p>Zuletzt möchte ich in diesem Abschnitt noch auf eine weitere Besonderheit, die sich aus der <code>Board.paint()</code> Methode erkennen lässt, eingehen.</p>
+                <p>Wenn wir hierbei kurz einen Blick auf diese werfen, fällt uns etwas auf (Die ersten 4 Zeilen der Methode sind für uns erst einmal irrelevant):</p>
+                <pre>
+                    <code class="JAVA">
+    public void paint(Graphics g) {
+        super.paint(g);
+        BasicStroke stroke2 = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER);
+        ((Graphics2D) g).setStroke(stroke2);
+
+        for (GeoObject p : geoObjects ) {
+            p.draw(g);
+        } // end of for
+    }
+                    </code>
+                </pre>
             </div>
         </div>
     </div>
